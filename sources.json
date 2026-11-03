@@ -1,0 +1,36 @@
+{
+  "emscripten": "6.0.13",
+  "python": "3.12",
+  "pynini": "2.1.7",
+  "pytest": "9.2.0",
+  "importlib_resources": "7.1.0",
+  "archives": [
+    {
+      "name": "wetext",
+      "directory": "vendor/WeTextProcessing",
+      "revision": "c3b4d88d11c5efef817881f7e515cbdd3a19d99b",
+      "url": "https://codeload.github.com/wenet-e2e/WeTextProcessing/tar.gz/c3b4d88d11c5efef817881f7e515cbdd3a19d99b",
+      "sha256": "7b15f1376d66b693c082860e3c06e3d1e4d37a2b02e0564a634121b265a3271b"
+    },
+    {
+      "name": "openfst",
+      "directory": "vendor/openfst",
+      "revision": "91c84cb37818505c4fcaae1ae97e49bb3348e1bf",
+      "url": "https://codeload.github.com/csukuangfj/openfst/tar.gz/91c84cb37818505c4fcaae1ae97e49bb3348e1bf",
+      "sha256": "43a8ef67e7ee9e109de48ad2bcc95a6f17200fe843ea93a6b6da0418ae01b41b"
+    },
+    {
+      "name": "pynini",
+      "directory": "vendor/pynini-2.1.7",
+      "url": "https://files.pythonhosted.org/packages/c6/b6/09a0efe843df37d9c80a9a1c190c7bb28d8920cee401e2a61c46f1328ec1/pynini-2.1.7.tar.gz",
+      "sha256": "fc06cc02adcbd4b14eb94ae9f2a0949d110612d2d4ee3a7ac5dc97b45fff8e33"
+    },
+    {
+      "name": "emsdk",
+      "directory": ".tools/emsdk",
+      "revision": "35659964bc2762fffec0d257997fb61475f765b7",
+      "url": "https://codeload.github.com/emscripten-core/emsdk/tar.gz/35659964bc2762fffec0d257997fb61475f765b7",
+      "sha256": "e3ef5e4a46753aecc700ec72f81abda6d0601a262c5afe2669323ce2721a22b8"
+    }
+  ]
+}

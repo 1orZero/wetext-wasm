@@ -1,0 +1,24 @@
+{
+  "name": "qa-wetext-cloudflare",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "cf dev",
+    "build": "cf build",
+    "deploy": "cf deploy",
+    "test": "node test.mjs",
+    "test:prepare": "node prepare-parity.mjs && node prepare-extra.mjs",
+    "test:parity": "node test-parity.mjs",
+    "test:extra": "node test-extra.mjs",
+    "typecheck": "cf workers types && tsc --noEmit"
+  },
+  "dependencies": {
+    "wetext-wasm": "file:../.."
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "cf": "1.0.0-beta.27",
+    "wrangler": "4.157.0",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,10 @@
+.tools/
+vendor/
+node_modules/
+build/
+dist/
+models/
+.test-data/
+*.tgz
+*.tgz.sha256
+__pycache__/

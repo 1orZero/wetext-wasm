@@ -1,0 +1,43 @@
+{
+  "format": 1,
+  "upstream": "c3b4d88d11c5efef817881f7e515cbdd3a19d99b",
+  "language": "qa",
+  "direction": "tn",
+  "options": {},
+  "tokenOrders": {
+    "date": [
+      "year",
+      "month",
+      "day"
+    ],
+    "fraction": [
+      "denominator",
+      "numerator"
+    ],
+    "measure": [
+      "denominator",
+      "numerator",
+      "value"
+    ],
+    "money": [
+      "value",
+      "currency"
+    ],
+    "time": [
+      "noon",
+      "hour",
+      "minute",
+      "second"
+    ]
+  },
+  "files": {
+    "tagger.fst": {
+      "sha256": "2d3e8f779e5148542942076d81af945c44e46ea3453c4d25af458cdd85fd5bc1",
+      "size": 834
+    },
+    "verbalizer.fst": {
+      "sha256": "347a6888baa3e58294712554bf6536bef325b281043227f944d9618b9553cc3e",
+      "size": 1674
+    }
+  }
+}

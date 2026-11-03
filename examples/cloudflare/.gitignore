@@ -1,0 +1,4 @@
+.qa-assets/
+.cloudflare/
+.wrangler/
+node_modules/

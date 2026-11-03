@@ -1,0 +1,2177 @@
+[
+  {
+    "model": "raw-ambiguity",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "counting { value: \"input\" }"
+  },
+  {
+    "model": "raw-ambiguity",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "FIRST"
+  },
+  {
+    "model": "raw-ambiguity",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 1,
+      "includeIdentity": true
+    },
+    "expected": {
+      "input": "input",
+      "output": "FIRST",
+      "mappings": [
+        {
+          "kind": "replace",
+          "tokenType": "counting",
+          "input": {
+            "start": 0,
+            "end": 5,
+            "text": "input"
+          },
+          "output": {
+            "start": 0,
+            "end": 5,
+            "text": "FIRST"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "model": "raw-ambiguity",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "counting { value: \"input\" }"
+    ]
+  },
+  {
+    "model": "raw-ambiguity",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "FIRST",
+      "SECOND"
+    ]
+  },
+  {
+    "model": "raw-ambiguity",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 2,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "FIRST",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 5,
+              "text": "FIRST"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "SECOND",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 6,
+              "text": "SECOND"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "raw-ambiguity",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 3
+    },
+    "expected": [
+      "counting { value: \"input\" }"
+    ]
+  },
+  {
+    "model": "raw-ambiguity",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 3
+    },
+    "expected": [
+      "FIRST",
+      "SECOND"
+    ]
+  },
+  {
+    "model": "raw-ambiguity",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 3,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "FIRST",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 5,
+              "text": "FIRST"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "SECOND",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 6,
+              "text": "SECOND"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "raw-ambiguity",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 8
+    },
+    "expected": [
+      "counting { value: \"input\" }"
+    ]
+  },
+  {
+    "model": "raw-ambiguity",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 8
+    },
+    "expected": [
+      "FIRST",
+      "SECOND"
+    ]
+  },
+  {
+    "model": "raw-ambiguity",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 8,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "FIRST",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 5,
+              "text": "FIRST"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "SECOND",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 6,
+              "text": "SECOND"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "joint-weights",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "counting { value: \"first\" }"
+  },
+  {
+    "model": "joint-weights",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "FIRST_BEST"
+  },
+  {
+    "model": "joint-weights",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 1,
+      "includeIdentity": true
+    },
+    "expected": {
+      "input": "input",
+      "output": "FIRST_BEST",
+      "mappings": [
+        {
+          "kind": "replace",
+          "tokenType": "counting",
+          "input": {
+            "start": 0,
+            "end": 5,
+            "text": "input"
+          },
+          "output": {
+            "start": 0,
+            "end": 10,
+            "text": "FIRST_BEST"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "model": "joint-weights",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "counting { value: \"first\" }",
+      "counting { value: \"second\" }"
+    ]
+  },
+  {
+    "model": "joint-weights",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "FIRST_BEST",
+      "SECOND_BEST"
+    ]
+  },
+  {
+    "model": "joint-weights",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 2,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "FIRST_BEST",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 10,
+              "text": "FIRST_BEST"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "SECOND_BEST",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 11,
+              "text": "SECOND_BEST"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "joint-weights",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 3
+    },
+    "expected": [
+      "counting { value: \"first\" }",
+      "counting { value: \"second\" }"
+    ]
+  },
+  {
+    "model": "joint-weights",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 3
+    },
+    "expected": [
+      "FIRST_BEST",
+      "SECOND_BEST",
+      "FIRST_ALT"
+    ]
+  },
+  {
+    "model": "joint-weights",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 3,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "FIRST_BEST",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 10,
+              "text": "FIRST_BEST"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "SECOND_BEST",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 11,
+              "text": "SECOND_BEST"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "FIRST_ALT",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 9,
+              "text": "FIRST_ALT"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "joint-weights",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 8
+    },
+    "expected": [
+      "counting { value: \"first\" }",
+      "counting { value: \"second\" }"
+    ]
+  },
+  {
+    "model": "joint-weights",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 8
+    },
+    "expected": [
+      "FIRST_BEST",
+      "SECOND_BEST",
+      "FIRST_ALT",
+      "SECOND_ALT"
+    ]
+  },
+  {
+    "model": "joint-weights",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 8,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "FIRST_BEST",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 10,
+              "text": "FIRST_BEST"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "SECOND_BEST",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 11,
+              "text": "SECOND_BEST"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "FIRST_ALT",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 9,
+              "text": "FIRST_ALT"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "SECOND_ALT",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 10,
+              "text": "SECOND_ALT"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "joint-itn",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "counting { value: \"first\" }"
+  },
+  {
+    "model": "joint-itn",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "A"
+  },
+  {
+    "model": "joint-itn",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 1,
+      "includeIdentity": true
+    },
+    "expected": {
+      "input": "input",
+      "output": "A",
+      "mappings": [
+        {
+          "kind": "replace",
+          "tokenType": "counting",
+          "input": {
+            "start": 0,
+            "end": 5,
+            "text": "input"
+          },
+          "output": {
+            "start": 0,
+            "end": 1,
+            "text": "A"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "model": "joint-itn",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "counting { value: \"first\" }",
+      "counting { value: \"second\" }"
+    ]
+  },
+  {
+    "model": "joint-itn",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "A",
+      "ALT"
+    ]
+  },
+  {
+    "model": "joint-itn",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 2,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "A",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 1,
+              "text": "A"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "ALT",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 3,
+              "text": "ALT"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "joint-itn",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 3
+    },
+    "expected": [
+      "counting { value: \"first\" }",
+      "counting { value: \"second\" }"
+    ]
+  },
+  {
+    "model": "joint-itn",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 3
+    },
+    "expected": [
+      "A",
+      "ALT",
+      "B"
+    ]
+  },
+  {
+    "model": "joint-itn",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 3,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "A",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 1,
+              "text": "A"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "ALT",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 3,
+              "text": "ALT"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "B",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 1,
+              "text": "B"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "joint-itn",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 8
+    },
+    "expected": [
+      "counting { value: \"first\" }",
+      "counting { value: \"second\" }"
+    ]
+  },
+  {
+    "model": "joint-itn",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 8
+    },
+    "expected": [
+      "A",
+      "ALT",
+      "B"
+    ]
+  },
+  {
+    "model": "joint-itn",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 8,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "A",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 1,
+              "text": "A"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "ALT",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 3,
+              "text": "ALT"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "B",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 1,
+              "text": "B"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "weighted-field",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "weighted { value: \"input\" } "
+  },
+  {
+    "model": "weighted-field",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "BEST"
+  },
+  {
+    "model": "weighted-field",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 1,
+      "includeIdentity": true
+    },
+    "expected": {
+      "input": "input",
+      "output": "BEST",
+      "mappings": [
+        {
+          "kind": "replace",
+          "tokenType": "weighted",
+          "input": {
+            "start": 0,
+            "end": 5,
+            "text": "input"
+          },
+          "output": {
+            "start": 0,
+            "end": 4,
+            "text": "BEST"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "model": "weighted-field",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "weighted { value: \"input\" } "
+    ]
+  },
+  {
+    "model": "weighted-field",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "BEST",
+      "ALT"
+    ]
+  },
+  {
+    "model": "weighted-field",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 2,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "BEST",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "weighted",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 4,
+              "text": "BEST"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "ALT",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "weighted",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 3,
+              "text": "ALT"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "weighted-field",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 3
+    },
+    "expected": [
+      "weighted { value: \"input\" } "
+    ]
+  },
+  {
+    "model": "weighted-field",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 3
+    },
+    "expected": [
+      "BEST",
+      "ALT"
+    ]
+  },
+  {
+    "model": "weighted-field",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 3,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "BEST",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "weighted",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 4,
+              "text": "BEST"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "ALT",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "weighted",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 3,
+              "text": "ALT"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "weighted-field",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 8
+    },
+    "expected": [
+      "weighted { value: \"input\" } "
+    ]
+  },
+  {
+    "model": "weighted-field",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 8
+    },
+    "expected": [
+      "BEST",
+      "ALT"
+    ]
+  },
+  {
+    "model": "weighted-field",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 8,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "BEST",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "weighted",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 4,
+              "text": "BEST"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "ALT",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "weighted",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 3,
+              "text": "ALT"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "duplicate-outputs",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "counting { value: \"first\" }"
+  },
+  {
+    "model": "duplicate-outputs",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "SAME"
+  },
+  {
+    "model": "duplicate-outputs",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 1,
+      "includeIdentity": true
+    },
+    "expected": {
+      "input": "input",
+      "output": "SAME",
+      "mappings": [
+        {
+          "kind": "replace",
+          "tokenType": "counting",
+          "input": {
+            "start": 0,
+            "end": 5,
+            "text": "input"
+          },
+          "output": {
+            "start": 0,
+            "end": 4,
+            "text": "SAME"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "model": "duplicate-outputs",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "counting { value: \"first\" }",
+      "counting { value: \"second\" }"
+    ]
+  },
+  {
+    "model": "duplicate-outputs",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "SAME",
+      "FIRST_ALT"
+    ]
+  },
+  {
+    "model": "duplicate-outputs",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 2,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "SAME",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 4,
+              "text": "SAME"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "FIRST_ALT",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 9,
+              "text": "FIRST_ALT"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "duplicate-outputs",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 3
+    },
+    "expected": [
+      "counting { value: \"first\" }",
+      "counting { value: \"second\" }"
+    ]
+  },
+  {
+    "model": "duplicate-outputs",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 3
+    },
+    "expected": [
+      "SAME",
+      "FIRST_ALT",
+      "SECOND_ALT"
+    ]
+  },
+  {
+    "model": "duplicate-outputs",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 3,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "SAME",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 4,
+              "text": "SAME"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "FIRST_ALT",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 9,
+              "text": "FIRST_ALT"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "SECOND_ALT",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 10,
+              "text": "SECOND_ALT"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "duplicate-outputs",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 8
+    },
+    "expected": [
+      "counting { value: \"first\" }",
+      "counting { value: \"second\" }"
+    ]
+  },
+  {
+    "model": "duplicate-outputs",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 8
+    },
+    "expected": [
+      "SAME",
+      "FIRST_ALT",
+      "SECOND_ALT"
+    ]
+  },
+  {
+    "model": "duplicate-outputs",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 8,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "SAME",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 4,
+              "text": "SAME"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "FIRST_ALT",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 9,
+              "text": "FIRST_ALT"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "SECOND_ALT",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 10,
+              "text": "SECOND_ALT"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "missing-branch",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "counting { value: \"first\" }"
+  },
+  {
+    "model": "missing-branch",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "SECOND"
+  },
+  {
+    "model": "missing-branch",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 1,
+      "includeIdentity": true
+    },
+    "expected": {
+      "input": "input",
+      "output": "SECOND",
+      "mappings": [
+        {
+          "kind": "replace",
+          "tokenType": "counting",
+          "input": {
+            "start": 0,
+            "end": 5,
+            "text": "input"
+          },
+          "output": {
+            "start": 0,
+            "end": 6,
+            "text": "SECOND"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "model": "missing-branch",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "counting { value: \"first\" }",
+      "counting { value: \"second\" }"
+    ]
+  },
+  {
+    "model": "missing-branch",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "SECOND"
+    ]
+  },
+  {
+    "model": "missing-branch",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 2,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "SECOND",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 6,
+              "text": "SECOND"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "missing-branch",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 3
+    },
+    "expected": [
+      "counting { value: \"first\" }",
+      "counting { value: \"second\" }"
+    ]
+  },
+  {
+    "model": "missing-branch",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 3
+    },
+    "expected": [
+      "SECOND"
+    ]
+  },
+  {
+    "model": "missing-branch",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 3,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "SECOND",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 6,
+              "text": "SECOND"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "missing-branch",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 8
+    },
+    "expected": [
+      "counting { value: \"first\" }",
+      "counting { value: \"second\" }"
+    ]
+  },
+  {
+    "model": "missing-branch",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 8
+    },
+    "expected": [
+      "SECOND"
+    ]
+  },
+  {
+    "model": "missing-branch",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 8,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "SECOND",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 6,
+              "text": "SECOND"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "duplicate-paths",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "counting { value: \"input\" }"
+  },
+  {
+    "model": "duplicate-paths",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "A"
+  },
+  {
+    "model": "duplicate-paths",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 1,
+      "includeIdentity": true
+    },
+    "expected": {
+      "input": "input",
+      "output": "A",
+      "mappings": [
+        {
+          "kind": "replace",
+          "tokenType": "counting",
+          "input": {
+            "start": 0,
+            "end": 5,
+            "text": "input"
+          },
+          "output": {
+            "start": 0,
+            "end": 1,
+            "text": "A"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "model": "duplicate-paths",
+    "method": "tag",
+    "input": "input",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "counting { value: \"input\" }"
+    ]
+  },
+  {
+    "model": "duplicate-paths",
+    "method": "normalize",
+    "input": "input",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "model": "duplicate-paths",
+    "method": "normalizeWithMapping",
+    "input": "input",
+    "options": {
+      "nbest": 2,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "input",
+        "output": "A",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 1,
+              "text": "A"
+            }
+          }
+        ]
+      },
+      {
+        "input": "input",
+        "output": "B",
+        "mappings": [
+          {
+            "kind": "replace",
+            "tokenType": "counting",
+            "input": {
+              "start": 0,
+              "end": 5,
+              "text": "input"
+            },
+            "output": {
+              "start": 0,
+              "end": 1,
+              "text": "B"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "escaped-unicode",
+    "method": "tag",
+    "input": "你好 \"[x]\"\\\\１２時😀",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "identity { value: \"你好 \\\"[x]\\\"\\\\\\\\１２時😀\" } "
+  },
+  {
+    "model": "escaped-unicode",
+    "method": "normalize",
+    "input": "你好 \"[x]\"\\\\１２時😀",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "你好 \"[x]\"\\\\１２時😀"
+  },
+  {
+    "model": "escaped-unicode",
+    "method": "normalizeWithMapping",
+    "input": "你好 \"[x]\"\\\\１２時😀",
+    "options": {
+      "nbest": 1,
+      "includeIdentity": true
+    },
+    "expected": {
+      "input": "你好 \"[x]\"\\\\１２時😀",
+      "output": "你好 \"[x]\"\\\\１２時😀",
+      "mappings": [
+        {
+          "kind": "equal",
+          "tokenType": "identity",
+          "input": {
+            "start": 0,
+            "end": 14,
+            "text": "你好 \"[x]\"\\\\１２時😀"
+          },
+          "output": {
+            "start": 0,
+            "end": 14,
+            "text": "你好 \"[x]\"\\\\１２時😀"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "model": "escaped-unicode",
+    "method": "tag",
+    "input": "你好 \"[x]\"\\\\１２時😀",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "identity { value: \"你好 \\\"[x]\\\"\\\\\\\\１２時😀\" } "
+    ]
+  },
+  {
+    "model": "escaped-unicode",
+    "method": "normalize",
+    "input": "你好 \"[x]\"\\\\１２時😀",
+    "options": {
+      "nbest": 2
+    },
+    "expected": [
+      "你好 \"[x]\"\\\\１２時😀"
+    ]
+  },
+  {
+    "model": "escaped-unicode",
+    "method": "normalizeWithMapping",
+    "input": "你好 \"[x]\"\\\\１２時😀",
+    "options": {
+      "nbest": 2,
+      "includeIdentity": true
+    },
+    "expected": [
+      {
+        "input": "你好 \"[x]\"\\\\１２時😀",
+        "output": "你好 \"[x]\"\\\\１２時😀",
+        "mappings": [
+          {
+            "kind": "equal",
+            "tokenType": "identity",
+            "input": {
+              "start": 0,
+              "end": 14,
+              "text": "你好 \"[x]\"\\\\１２時😀"
+            },
+            "output": {
+              "start": 0,
+              "end": 14,
+              "text": "你好 \"[x]\"\\\\１２時😀"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "model": "space",
+    "method": "tag",
+    "input": "ab",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "char { value: \"a\" } char { value: \"b\" }"
+  },
+  {
+    "model": "space",
+    "method": "normalize",
+    "input": "ab",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "A 😀"
+  },
+  {
+    "model": "space",
+    "method": "normalizeWithMapping",
+    "input": "ab",
+    "options": {
+      "nbest": 1,
+      "includeIdentity": true
+    },
+    "expected": {
+      "input": "ab",
+      "output": "A 😀",
+      "mappings": [
+        {
+          "kind": "replace",
+          "tokenType": "char",
+          "input": {
+            "start": 0,
+            "end": 1,
+            "text": "a"
+          },
+          "output": {
+            "start": 0,
+            "end": 1,
+            "text": "A"
+          }
+        },
+        {
+          "kind": "replace",
+          "tokenType": "char",
+          "input": {
+            "start": 1,
+            "end": 2,
+            "text": "b"
+          },
+          "output": {
+            "start": 2,
+            "end": 3,
+            "text": "😀"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "model": "nbsp",
+    "method": "tag",
+    "input": "ab",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "char { value: \"a\" } char { value: \"b\" }"
+  },
+  {
+    "model": "nbsp",
+    "method": "normalize",
+    "input": "ab",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "A 😀"
+  },
+  {
+    "model": "nbsp",
+    "method": "normalizeWithMapping",
+    "input": "ab",
+    "options": {
+      "nbest": 1,
+      "includeIdentity": true
+    },
+    "expected": {
+      "input": "ab",
+      "output": "A 😀",
+      "mappings": [
+        {
+          "kind": "replace",
+          "tokenType": "char",
+          "input": {
+            "start": 0,
+            "end": 1,
+            "text": "a"
+          },
+          "output": {
+            "start": 0,
+            "end": 1,
+            "text": "A"
+          }
+        },
+        {
+          "kind": "replace",
+          "tokenType": "char",
+          "input": {
+            "start": 1,
+            "end": 2,
+            "text": "b"
+          },
+          "output": {
+            "start": 2,
+            "end": 3,
+            "text": "😀"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "model": "wide-space",
+    "method": "tag",
+    "input": "ab",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "char { value: \"a\" } char { value: \"b\" }"
+  },
+  {
+    "model": "wide-space",
+    "method": "normalize",
+    "input": "ab",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "A　😀"
+  },
+  {
+    "model": "wide-space",
+    "method": "normalizeWithMapping",
+    "input": "ab",
+    "options": {
+      "nbest": 1,
+      "includeIdentity": true
+    },
+    "expected": {
+      "input": "ab",
+      "output": "A　😀",
+      "mappings": [
+        {
+          "kind": "replace",
+          "tokenType": "char",
+          "input": {
+            "start": 0,
+            "end": 1,
+            "text": "a"
+          },
+          "output": {
+            "start": 0,
+            "end": 1,
+            "text": "A"
+          }
+        },
+        {
+          "kind": "replace",
+          "tokenType": "char",
+          "input": {
+            "start": 1,
+            "end": 2,
+            "text": "b"
+          },
+          "output": {
+            "start": 2,
+            "end": 3,
+            "text": "😀"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "model": "deleted-boundary",
+    "method": "tag",
+    "input": "ab",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "char { value: \"a\" } char { value: \"b\" }"
+  },
+  {
+    "model": "deleted-boundary",
+    "method": "normalize",
+    "input": "ab",
+    "options": {
+      "nbest": 1
+    },
+    "expected": "AX"
+  },
+  {
+    "model": "deleted-boundary",
+    "method": "normalizeWithMapping",
+    "input": "ab",
+    "options": {
+      "nbest": 1,
+      "includeIdentity": true
+    },
+    "expected": {
+      "input": "ab",
+      "output": "AX",
+      "mappings": [
+        {
+          "kind": "replace",
+          "tokenType": "char",
+          "input": {
+            "start": 0,
+            "end": 1,
+            "text": "a"
+          },
+          "output": {
+            "start": 0,
+            "end": 2,
+            "text": "AX"
+          }
+        },
+        {
+          "kind": "delete",
+          "tokenType": "char",
+          "input": {
+            "start": 1,
+            "end": 2,
+            "text": "b"
+          },
+          "output": {
+            "start": 2,
+            "end": 2,
+            "text": ""
+          }
+        }
+      ]
+    }
+  }
+]
