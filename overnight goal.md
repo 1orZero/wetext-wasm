@@ -1,8 +1,8 @@
 # WeTextProcessing TypeScript＋WASM 完成紀錄
 
-狀態：實作、完整測試覆蓋與 npm 發行準備完成；尚未發布 npm。日期：2026-11-04。
+狀態：實作、完整測試覆蓋、PersonalSpace 搬移與 GitHub 私有倉庫發布完成；尚未發布 npm。日期：2026-11-04。
 
-目前工作目錄：`/Users/derek/PersonalSpace/wetext-wasm`。GitHub 私有倉庫發布進度見文末。
+目前工作目錄：`/Users/derek/PersonalSpace/wetext-wasm`。GitHub：[1orZero/wetext-wasm](https://github.com/1orZero/wetext-wasm)，可見性為 Private。搬移與發布驗證見文末。
 
 套件可建置與離線安裝，執行階段不需要 Python。27,178 個上游案例已有完整對應，沒有未解項目：26,840 個具備 JavaScript／WASM 執行證據，其中 23 個另含保留的 Python 斷言；338 個只驗證 Python 建置工具、fixture 或私有實作。原 pytest 全數通過。50,864 筆 Processor 與 3,141 筆額外斷言均已通過 Node.js、本機及雲端 Workers。最終封裝已驗證，獨立覆核未發現阻擋發行準備的問題。
 
@@ -249,7 +249,9 @@ npm publish ./wetext-wasm-0.1.0.tgz --access public
 - 已在新目錄初始化獨立的 `main` 分支，沒有切換 dotfiles 分支。已建立個人私有倉庫 `https://github.com/1orZero/wetext-wasm`，並設定 `origin`；GitHub 回應確認 owner 為 `1orZero`、visibility 為 `PRIVATE`。
 - 原始碼、測試、fixtures、授權、範例與本紀錄納入 Git。工具鏈、上游來源、模型、建置產物、完整測試資料與 npm 封裝依既有 `.gitignore` 保留於本機。
 - 舊 CMake 建置目錄保留在 `.tools/build-before-personalspace/`，新位置重建成功，紀錄為 `.tools/relocation-build.log`。Python／Pynini 載入通過；沒有符號連結指向舊專案路徑。
-- 重建後 JavaScript 檔案雜湊相同，WASM 雜湊不同；新的執行檔正在跑 `npm run check`，輸出為 `.tools/relocation-check.log`。原交付封裝保留不變，SHA-256 檢查通過。
+- 重建後 JavaScript 檔案雜湊相同，WASM 雜湊不同；新的執行檔已通過 `npm run check`，exit 0，完整輸出為 `.tools/relocation-check.log`。原交付封裝保留不變，SHA-256 檢查通過。
 - 發布前檢查已確認 111 份待提交檔案共約 2.12 MB，未包含工具鏈、模型或憑證檔；常見權杖與私鑰標記掃描無命中。第三方授權檔保留原始格式；只移除自有 `scripts/inventory.py` 結尾的多餘空行。
-- 待辦：確認搬移後完整測試結果、commit／push，核對遠端提交版本。本次不發布 npm，也不重跑或變更雲端部署。
+- 原始碼已 commit／push，初始提交為 `77ff229d7a8aa39cbde759784a9070081873766f`。GitHub 與本機的 `main` 提交已核對一致；遠端預設分支為 `main`、可見性為 `PRIVATE`。本次未發布 npm，也未重跑或變更雲端部署。
 - 搬移後的 23 項套件／API 測試與型別檢查已通過，含離線安裝、ES modules、CommonJS 動態匯入與 TypeScript；新的測試封裝資料見 `.test-data/qa-package-summary.json`，它與上方保留的原交付封裝分開記錄。
+- 完整 Node.js 重播再次通過 50,864 筆，144 組模型、46 個預期例外，0 差異；補充 FST、parser、alignment 與權重斷言也全部通過。最終矩陣仍完整對應 27,178 個案例，未解為 0。Python 的 27,178 筆原始結果沿用先前成功的擷取資料，本次沒有重新執行完整上游 pytest。
+- 搬移及私有原始碼發布已完成；沒有剩餘測試、部署或子代理作業。dotfiles 的其他變更保留。npm 發布仍需先處理原先的 E401 登入問題，不在本次 GitHub 發布範圍。
