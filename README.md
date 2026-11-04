@@ -33,7 +33,7 @@ npm install wetext-wasm
 
 Uses ES modules and requires Node.js 22 or newer. CommonJS callers can use
 `await import('wetext-wasm')`. For an offline installation, use
-`npm install /path/to/wetext-wasm-0.1.0.tgz`.
+`npm install /path/to/wetext-wasm-0.2.0.tgz`.
 
 ```ts
 import { createNormalizer } from 'wetext-wasm';
@@ -65,6 +65,77 @@ Only the selected model is loaded into memory.
 These are the upstream language identifiers. Mixed Spanish/English and
 Hindi/English have their own ITN models. Output spelling and punctuation follow
 the pinned upstream grammars.
+
+## Chinese ITN build options
+
+Set `dictation` to `true` when compiling `zh-itn` to accept Traditional
+Chinese number spellings (萬、億、兩、點、號、個), 〇, and 廿/卅. This option
+keeps spoken digit sequences of three or more digits together, preserves
+measurement units, and writes dates with 年/月/日/號. Text outside converted
+fields keeps its original spelling and spaces.
+
+`dictation` defaults to `false`. The npm package carries the 40 upstream default
+models and the model compiler. Compile custom settings into a directory outside
+the package's bundled `models/` directory, then load that directory through the
+existing `model` argument. Building requires the tools listed under
+[Build from source](#build-from-source); running the resulting model requires
+only the JavaScript/WASM package.
+
+From an installed npm package:
+
+```sh
+npm --prefix ./node_modules/wetext-wasm run setup
+npm --prefix ./node_modules/wetext-wasm run models -- \
+  --options '{"dictation":true}' --output /absolute/path/to/app/models/zh-itn
+```
+
+In a prepared source checkout, the equivalent command is:
+
+```sh
+npm run models -- --options '{"dictation":true}' --output build/models/zh-itn
+```
+
+Load the compiled files from your application:
+
+```js
+import { createNormalizer } from 'wetext-wasm';
+
+const normalizer = await createNormalizer({
+  model: new URL('./models/zh-itn/', import.meta.url),
+});
+try {
+  normalizer.normalize('三萬五千');             // '35000'
+  normalizer.normalize('兩萬三');               // '23000'
+  normalizer.normalize('零三四八五四六');       // '0348546'
+  normalizer.normalize('二〇二四');             // '2024'
+  normalizer.normalize('廿七');                 // '27'
+  normalizer.normalize('卅');                   // '30'
+  normalizer.normalize('三十秒');               // '30秒'
+  normalizer.normalize('二零二六年十一月四號'); // '2026年11月4號'
+} finally {
+  normalizer.dispose();
+}
+```
+
+The existing `remove_interjections`, `enable_standalone_number`,
+`enable_0_to_9`, and `enable_million` options can be combined with `dictation`.
+Their defaults remain unchanged. For example,
+`--options '{"dictation":true,"enable_0_to_9":true}'` also converts isolated
+single digits. These are compile-time options; each configuration produces its
+own model files. Browsers and Workers can load those files through the existing
+URL or `{ manifest, tagger, verbalizer }` interface.
+
+```text
+zh-itn + default options   -> bundled model -> upstream behavior
+zh-itn + dictation: true   -> custom files  -> Chinese dictation behavior
+```
+
+The grammar retains upstream ambiguity rules: `十分重要` becomes `10分重要`,
+`七七八八` becomes `7788`, and `數一二三` becomes `數123`. Callers must decide
+which passages contain numbers. `三三兩兩` is protected as a known phrase.
+Large magnitudes remain segmented (`一億兩千萬` becomes `1億2000萬`), and
+`M 一` stays unchanged. Currency formatting and range expressions such as
+`四五十` → `40~50` retain their grammar behavior. English models are unchanged.
 
 ## API
 
@@ -278,14 +349,14 @@ grammar-authoring API.
 
 ## Release to npm
 
-These commands are for the first `wetext-wasm@0.1.0` release. Start from a built
-checkout that has passed the compatibility checks above. Create a fresh archive
-after any README or license update so the published package includes it:
+These commands publish `wetext-wasm@0.2.0`. Start from a built checkout that has
+passed the compatibility checks above. Create a fresh archive after any README
+or license update so the published package includes it:
 
 ```sh
 npm pack
-shasum -a 256 wetext-wasm-0.1.0.tgz > wetext-wasm-0.1.0.tgz.sha256
-npm publish ./wetext-wasm-0.1.0.tgz --dry-run --ignore-scripts
+shasum -a 256 wetext-wasm-0.2.0.tgz > wetext-wasm-0.2.0.tgz.sha256
+npm publish ./wetext-wasm-0.2.0.tgz --dry-run --ignore-scripts
 ```
 
 Sign in to the npm account that will own the package. Complete the browser
@@ -305,9 +376,9 @@ repository does not make the npm package private. Check the archive and account
 before running it:
 
 ```sh
-shasum -a 256 -c wetext-wasm-0.1.0.tgz.sha256
-npm publish ./wetext-wasm-0.1.0.tgz --access public --registry=https://registry.npmjs.org/
-npm view wetext-wasm@0.1.0 version dist.integrity --registry=https://registry.npmjs.org/
+shasum -a 256 -c wetext-wasm-0.2.0.tgz.sha256
+npm publish ./wetext-wasm-0.2.0.tgz --access public --registry=https://registry.npmjs.org/
+npm view wetext-wasm@0.2.0 version dist.integrity --registry=https://registry.npmjs.org/
 ```
 
 For later releases, use a new version and update the archive filename in these

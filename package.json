@@ -1,6 +1,6 @@
 {
   "name": "wetext-wasm",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "WeTextProcessing normalization for JavaScript with an OpenFst WebAssembly runtime",
   "type": "module",
   "license": "Apache-2.0",
@@ -22,7 +22,11 @@
     "LICENSE",
     "licenses",
     "sources.json",
-    "THIRD_PARTY_NOTICES.md"
+    "THIRD_PARTY_NOTICES.md",
+    "scripts/setup.mjs",
+    "scripts/python.mjs",
+    "scripts/export_models.py",
+    "scripts/zh_dictation.py"
   ],
   "scripts": {
     "setup": "node scripts/setup.mjs",

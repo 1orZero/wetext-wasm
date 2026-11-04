@@ -74,4 +74,4 @@ if (!existsSync(python) && !process.env.WETEXT_PYTHON) {
     '-c', 'conda-forge', `python=${sources.python}`, `pynini=${sources.pynini}`, `pytest=${sources.pytest}`, `importlib_resources=${sources.importlib_resources}`]);
 }
 run(python, ['-c', `from importlib.metadata import version; import pynini; assert version('pynini') == '${sources.pynini}'; import pytest, importlib_resources; print('Python model toolchain verified')`]);
-console.log('Setup complete. Run npm run build, then npm run models -- --all.');
+console.log('Setup complete. The model compiler and source-build toolchain are ready.');

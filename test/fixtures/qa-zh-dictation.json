@@ -1,0 +1,352 @@
+{
+  "upstreamRevision": "c3b4d88d11c5efef817881f7e515cbdd3a19d99b",
+  "cases": [
+    {
+      "language": "zh",
+      "input": "三万五千",
+      "upstream": "35000",
+      "dictation": "35000"
+    },
+    {
+      "language": "zh",
+      "input": "两万三",
+      "upstream": "23000",
+      "dictation": "23000"
+    },
+    {
+      "language": "zh",
+      "input": "零三四八五四六",
+      "upstream": "034 8546",
+      "dictation": "0348546"
+    },
+    {
+      "language": "zh",
+      "input": "M B 零三四八五四六",
+      "upstream": "M B 034 8546",
+      "dictation": "M B 0348546"
+    },
+    {
+      "language": "zh",
+      "input": "三点半",
+      "upstream": "3:30",
+      "dictation": "3:30"
+    },
+    {
+      "language": "zh",
+      "input": "十一月三号",
+      "upstream": "11/03",
+      "dictation": "11月3號"
+    },
+    {
+      "language": "zh",
+      "input": "三十秒",
+      "upstream": "30s",
+      "dictation": "30秒"
+    },
+    {
+      "language": "zh",
+      "input": "十分重要",
+      "upstream": "10分重要",
+      "dictation": "10分重要"
+    },
+    {
+      "language": "zh",
+      "input": "七七八八",
+      "upstream": "7788",
+      "dictation": "7788"
+    },
+    {
+      "language": "zh",
+      "input": "一个人",
+      "upstream": "一个人",
+      "dictation": "一个人"
+    },
+    {
+      "language": "zh",
+      "input": "两个问题",
+      "upstream": "两个问题",
+      "dictation": "两个问题"
+    },
+    {
+      "language": "zh",
+      "input": "廿七",
+      "upstream": "廿七",
+      "dictation": "27"
+    },
+    {
+      "language": "zh",
+      "input": "一亿两千万",
+      "upstream": "1亿2000万",
+      "dictation": "1億2000萬"
+    },
+    {
+      "language": "zh",
+      "input": "二零二六年十一月四号",
+      "upstream": "2026/11/04",
+      "dictation": "2026年11月4號"
+    },
+    {
+      "language": "zh",
+      "input": "二零二四年",
+      "upstream": "2024年",
+      "dictation": "2024年"
+    },
+    {
+      "language": "zh",
+      "input": "廿七 B",
+      "upstream": "廿七 B",
+      "dictation": "27 B"
+    },
+    {
+      "language": "zh",
+      "input": "P 九十九",
+      "upstream": "P 99",
+      "dictation": "P 99"
+    },
+    {
+      "language": "zh",
+      "input": "HTTP 四百",
+      "upstream": "HTTP 400",
+      "dictation": "HTTP 400"
+    },
+    {
+      "language": "zh",
+      "input": "九十日",
+      "upstream": "90日",
+      "dictation": "90日"
+    },
+    {
+      "language": "zh",
+      "input": "一千零二十",
+      "upstream": "1020",
+      "dictation": "1020"
+    },
+    {
+      "language": "zh",
+      "input": "三萬五千",
+      "upstream": "三萬5000",
+      "dictation": "35000"
+    },
+    {
+      "language": "zh",
+      "input": "兩萬三",
+      "upstream": "兩萬三",
+      "dictation": "23000"
+    },
+    {
+      "language": "zh",
+      "input": "三千五",
+      "upstream": "3500",
+      "dictation": "3500"
+    },
+    {
+      "language": "zh",
+      "input": "四五十",
+      "upstream": "40~50",
+      "dictation": "40~50"
+    },
+    {
+      "language": "zh",
+      "input": "三三兩兩",
+      "upstream": "三三兩兩",
+      "dictation": "三三兩兩"
+    },
+    {
+      "language": "zh",
+      "input": "三五個字",
+      "upstream": "3~5個字",
+      "dictation": "3~5個字"
+    },
+    {
+      "language": "zh",
+      "input": "一一對應",
+      "upstream": "一一對應",
+      "dictation": "一一對應"
+    },
+    {
+      "language": "zh",
+      "input": "數一二三",
+      "upstream": "數123",
+      "dictation": "數123"
+    },
+    {
+      "language": "zh",
+      "input": "五四運動",
+      "upstream": "五四運動",
+      "dictation": "五四運動"
+    },
+    {
+      "language": "zh",
+      "input": "千萬不要",
+      "upstream": "千萬不要",
+      "dictation": "千萬不要"
+    },
+    {
+      "language": "zh",
+      "input": "一心一意",
+      "upstream": "一心一意",
+      "dictation": "一心一意"
+    },
+    {
+      "language": "zh",
+      "input": "百分之三十",
+      "upstream": "30%",
+      "dictation": "30%"
+    },
+    {
+      "language": "zh",
+      "input": "三點半",
+      "upstream": "三點半",
+      "dictation": "3:30"
+    },
+    {
+      "language": "zh",
+      "input": "十一月三號",
+      "upstream": "11月三號",
+      "dictation": "11月3號"
+    },
+    {
+      "language": "zh",
+      "input": "M 一和 O 一",
+      "upstream": "M 一和 O 一",
+      "dictation": "M 一和 O 一"
+    },
+    {
+      "language": "zh",
+      "input": "Plan A 一定",
+      "upstream": "Plan A 一定",
+      "dictation": "Plan A 一定"
+    },
+    {
+      "language": "zh",
+      "input": "A 一個",
+      "upstream": "A 一個",
+      "dictation": "A 一個"
+    },
+    {
+      "language": "zh",
+      "input": "iPhone 十七",
+      "upstream": "iPhone 17",
+      "dictation": "iPhone 17"
+    },
+    {
+      "language": "zh",
+      "input": "第二十三行",
+      "upstream": "第23行",
+      "dictation": "第23行"
+    },
+    {
+      "language": "zh",
+      "input": "我有兩個問題",
+      "upstream": "我有兩個問題",
+      "dictation": "我有兩個問題"
+    },
+    {
+      "language": "zh",
+      "input": "兩三個",
+      "upstream": "兩三個",
+      "dictation": "兩三個"
+    },
+    {
+      "language": "zh",
+      "input": "一個人",
+      "upstream": "一個人",
+      "dictation": "一個人"
+    },
+    {
+      "language": "zh",
+      "input": "三個選擇",
+      "upstream": "三個選擇",
+      "dictation": "三個選擇"
+    },
+    {
+      "language": "zh",
+      "input": "幫我設定 port 八零八零",
+      "upstream": "幫我設定 port 8080",
+      "dictation": "幫我設定 port 8080"
+    },
+    {
+      "language": "zh",
+      "input": "大概三四日",
+      "upstream": "大概3~4日",
+      "dictation": "大概3~4日"
+    },
+    {
+      "language": "zh",
+      "input": "我今日食咗兩碗飯",
+      "upstream": "我今日食咗兩碗飯",
+      "dictation": "我今日食咗兩碗飯"
+    },
+    {
+      "language": "zh",
+      "input": "萬一出事",
+      "upstream": "萬一出事",
+      "dictation": "萬一出事"
+    },
+    {
+      "language": "zh",
+      "input": "一定要",
+      "upstream": "一定要",
+      "dictation": "一定要"
+    },
+    {
+      "language": "zh",
+      "input": "一億兩千萬",
+      "upstream": "一億兩千萬",
+      "dictation": "1億2000萬"
+    },
+    {
+      "language": "zh",
+      "input": "卅",
+      "upstream": "卅",
+      "dictation": "30"
+    },
+    {
+      "language": "zh",
+      "input": "M 一",
+      "upstream": "M 一",
+      "dictation": "M 一"
+    },
+    {
+      "language": "zh",
+      "input": "port 八零八零",
+      "upstream": "port 8080",
+      "dictation": "port 8080"
+    },
+    {
+      "language": "en",
+      "input": "thirty five seconds",
+      "upstream": "35 s"
+    },
+    {
+      "language": "en",
+      "input": "set the timeout to thirty five seconds",
+      "upstream": "set the timeout to 35 s"
+    },
+    {
+      "language": "en",
+      "input": "version two point six",
+      "upstream": "version 2.6"
+    },
+    {
+      "language": "en",
+      "input": "port eight zero eight zero",
+      "upstream": "port 8080"
+    },
+    {
+      "language": "en",
+      "input": "two questions",
+      "upstream": "two questions"
+    },
+    {
+      "language": "en",
+      "input": "I have two questions",
+      "upstream": "I have two questions"
+    },
+    {
+      "language": "en",
+      "input": "one of them",
+      "upstream": "one of them"
+    }
+  ]
+}

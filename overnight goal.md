@@ -278,3 +278,69 @@ npm publish ./wetext-wasm-0.1.0.tgz --access public
 - 發布後驗證通過：中文 ITN、百分比、多候選、tag／verbalize、emoji 的 code-point 位置與英文 TN；ES modules、CommonJS 動態匯入與 TypeScript 嚴格型別編譯均通過。證據為 `.test-data/qa-npm-published.json`，測試目錄保留於 `/private/tmp/qa-wetext-npm-xfaQWl/`。
 - 公開連結：[GitHub](https://github.com/1orZero/wetext-wasm)、[npm 0.1.0](https://www.npmjs.com/package/wetext-wasm/v/0.1.0)。
 - 本次沒有變更執行邏輯，未重跑完整上游 pytest 或 Workers 全案例；沿用既有完整結果，另外確認此次發布內容與已測封裝一致。所有發布與安裝程序均已結束，沒有待執行工作。
+
+### 已發布套件的雲端重測與清理（2026-11-04）
+
+- 使用者要求在雲端測試，完成後刪除本工作階段建立的 Cloudflare Workers；此明確指示取代先前保留雲端測試資源的規則。本機測試證據仍保留。
+- 已核對先前部署紀錄，本專案只建立 `qa-wetext-wasm`；不刪除帳號內其他專案或原有 Worker。測試前清單存於 `.test-data/qa-cf-npm-workers-before.json`。
+- 將依使用者 QA 規則委派 `gpt-6-sol`、medium，使用 npm 的 `wetext-wasm@0.1.0` 與既有完整 corpus，在同一個測試 Worker 重跑 50,864 筆 Processor、3,141 筆補充斷言及主要 API 檢查；沿用 30,000 ms CPU 上限與既有超時分段。
+- 主工作階段負責測試完成後的 Worker 刪除、清單核對與本紀錄更新。子工作只執行 QA 並保存證據，不切換分支、不發布 npm、不建立新的付費資源。
+
+### 中文聽寫獨立模型（2026-11-04）
+
+- 已將使用者表格及兩份實測腳本中的 59 個中英文輸入，逐項交給固定 Python 上游與 npm `0.1.0` 執行，輸出全部相同。這些問題來自上游文法，沒有發現 JavaScript 移植差異；比對證據為 `.test-data/qa-zh-dictation/npm-parity.json`。
+- 新增 `scripts/zh_dictation.py`，重用上游規則編譯獨立的 `models/zh-itn-dictation/`。以 `npm run models -- --profile zh-dictation` 建置，再透過既有 `createNormalizer({ model })` 載入。未變更 TypeScript／WASM 執行邏輯或預設模型。
+- 新模型支援繁體數字字形、廿／卅、連續數字不插空格、保留中文測量單位與年月日／號格式；例如 `三萬五千` → `35000`、`兩萬三` → `23000`、`零三四八五四六` → `0348546`、`三十秒` → `30秒`、`二零二六年十一月四號` → `2026年11月4號`。原始欄位、其他文字字形及已有空格保留，`三三兩兩` 列入保留詞。
+- 保留上游限制：`一億兩千萬` → `1億2000萬`，不展開成單一整數；`M 一` 不合併成代號；`十分重要`、`七七八八`、`數一二三` 的上下文判斷仍由呼叫端處理。英文與範圍寫法不變。上游也保留 `两三个`，因此對應的 `兩三個` 維持原文。
+- 使用者提供的每個輸入都有預設輸出測試；52 個中文輸入另驗證新模型的 normalize 與 tag／verbalize。加上單位、日期、字形、原始空格、code-point mapping 與候選輸出，專項測試共 131 項，全數通過。完整套件測試 154／154 與型別檢查通過，含從離線封裝載入新模型及 TypeScript 使用方式。
+- 40 個預設模型的 120 個檔案，逐位元比對 npm `0.1.0` 全部一致。新封裝包含 41 組模型，僅用於本機安裝驗證；既有正式發布封裝保留，尚未發布新版 npm，也未修改 voiceink-hant。
+- README 已說明模型選擇、來源建置方式及限制。新增內容依 `humanizer` 潤飾；本紀錄依 `tw-writing` 與 `humanizer-zh-tw` 核對。
+- `npm run check` 已完成（session 55088，exit 0）：154 項測試、50,864 筆 Processor 重播、1,953 筆直接圖重播、核心 parser／mapping 斷言與 1,164 筆補充斷言均通過；最後矩陣完整對應 27,178 個上游案例，未解為 0。紀錄為 `.test-data/qa-zh-dictation/check.log`。本次重播既有 Python 證據，沒有重新執行全部上游 pytest。
+- 新模型的程式修改、文件與本機驗證已完成；新模型尚未做雲端驗證，也未 commit／push／發布 npm。正式發布的 `0.1.0` 保持原樣。主工作階段沒有剩餘本機執行作業。
+- npm `0.1.0` 的完整雲端 QA 與測試 Worker 清理均已完成，結果如下。新模型的本機變更仍保留，沒有新增發布或修改 voiceink-hant。
+
+
+### npm 雲端驗證與測試 Worker 清理完成（2026-11-04）
+
+- `gpt-6-sol`、medium 子工作已完成，部署版本為 `406a2246-8b47-474b-9d2d-e213b5624bb1`。公開 registry 套件與部署來源的 24 份執行檔及相關檔案逐位元一致；其他測試設定使用既有上游模型快照。
+- 雲端 144 組模型／設定、50,864／50,864 筆 Processor 事件全數通過，含 46 個預期例外；case ID 無遺漏或重複。1 個 CPU 超時批次依既有規則拆分後通過，未提高 CPU 上限。另有 3,141／3,141 筆補充斷言及 10／10 次主要 API 請求通過。完整證據保留於 `.test-data/qa-cf-npm-release/`。
+- 主工作階段於 2026-11-04 09:47（台灣時間）執行 `cf workers delete qa-wetext-wasm --force`，exit 0；沒有使用 `--delete-with-references`。刪除前後即時清單確認目標已移除，帳號 Worker 數量從 11 個減為 10 個，其餘 10 個名稱與 ID 全部相同。證據為 `.test-data/qa-cf-worker-cleanup.json`、`qa-cf-npm-workers-pre-delete.json` 與 `qa-cf-npm-workers-after.json`。
+- 本專案建立的測試 Worker 已全部清除；本機測試證據保留。沒有剩餘測試、部署、子工作或待清理資源。
+- 本次雲端測試範圍是已發布的 npm `0.1.0`，未包含新增 `zh-itn-dictation` 模型，也未重跑 Python 專屬測試。新模型已完成本機驗證，尚未 commit／push／發布 npm。
+
+### 獨立模型必要性的第二意見（2026-11-04）
+
+- 使用者要求詢問 Opus 5.5，以 Extra high reasoning effort 重新評估是否需要新增可選模型，或應沿用既有模型。
+- 已透過 T3 委派 Claude Opus 5.5，回傳設定確認 `claude-opus-5-5`、`effort: xhigh`。這是唯讀決策評估；子工作會查閱既有模型選項、目前編譯實作、測試證據及必要的 voiceink-hant 呼叫端，提出方案優缺點與明確建議。沒有授權修改、提交或發布。
+- Opus 第二意見已完成，主工作階段已核對呼叫路徑、上游選項與暫存實驗。這輪只提供決策建議，沒有撤回、修改或發布程式。
+- 子工作：<t3-thread://v2/27cb8ad0-cb91-4ff0-899d-713e6da227f9/thread:delegated-task:command%3Amcp%3A03ddd5de-5190-4c51-ac6f-db4c8890a428%3Adelegate-task%3Awetext-opus55-xhigh-model-necessity-20261104>
+
+
+### 第二意見覆核結果（2026-11-04）
+
+- Opus 建議目前不要把 zh-itn-dictation 作為公開、隨 npm 攜帶的模型。主工作階段確認 voiceink-hant 的 numberCandidates 只把 NUMBER_RUN 擷取的純數字片段交給 chineseNumber，再由 Jev 判斷是否採用；單位、日期字與空格不在該片段內。NUMBER_RUN 另有大寫字母後的單一數字分支，不能簡化成所有片段都至少兩字。
+- 主工作階段重新執行 /private/tmp/wetext-review/slot.mjs 與 zero.mjs。27 個片段中，既有 zh-itn 加字形／廿卅預處理並去除模型插入的空格，和新模型經純數字檢查後的結果一致；部分結果是兩者都拒收，不能解讀成 27 個都可正確轉換。大數值、單一數字與兩字數字串仍需既有處理作為後備。
+- 整句日期、時間需求不能因此視為完成：既有四個 ITN 選項不控制中文日期、單位格式；原本的片段路徑也抓不到三點半，且不會單獨轉換十一月三號中的三。若保留這些需求，就必須另處理候選擷取與文法格式，不能只換回舊模型。
+- 核對後的建議：以目前片段流程為前提，不需要新增公開模型，先不將獨立文法列為 npm 發行內容；若確定要完整日期／時間與中文格式，再評估獨立文法及整句位置對應流程。這是條件式建議，沒有把先前完整需求刪除，也沒有授權實作回退。
+- 額外缺口：兩個模型都保留二〇二四，既有 chineseNumber 可處理〇。Opus 的 27 例腳本尚未包含〇預處理或真正呼叫既有函式的後備分支；報告裡那段含〇與後備的程式是建議，並非完整驗證的接法。
+- Opus 對測試來源的概括需限縮：131 項專項測試含 59 項獨立 Python 上游輸出，不能說全部預期值都由本專案自行制定；新模型特有的輸出契約仍由本專案維護。未以真實聽寫紀錄評估替代方案，也未量測其 Worker 效能。
+- 第二意見與覆核均已完成，沒有執行中的子工作。現有程式與模型保持原狀，沒有新發布或雲端資源。
+
+### 既有模型選項的釐清（2026-11-04）
+
+- 使用者追問是否應修改既有模型選項。已核對現有四個 ITN 選項，均未提供繁體輸入、連續數字空格或中文日期／單位格式設定；只更改現有選項值無法完成原需求。
+- 若保留完整需求，可以在既有 zh-itn 建置流程擴充選項並保留原預設值，但仍須實作額外文法，且不同設定會編出不同的 FST 檔案。改成選項介面本身不會消除自訂規則的維護成本。
+- Opus 的較小方案是既有模型加純數字片段的前後處理，適用範圍不包含完整日期／時間及中文格式。這輪僅釐清設計，現有程式變更與模型全部保留，未修改、提交或發布程式；沒有執行中作業。
+
+### 中文聽寫編譯選項與 npm 0.2.0（進行中，2026-11-04）
+
+- 使用者已確認改用既有 zh-itn 編譯選項，並要求完成後發布 npm，再通知 thread 160f2188-27d7-4eae-8096-eadf1c75cc3b。已讀取該 thread，後續只通知發布結果，不修改 voiceink-hant。
+- 已移除 --profile 與公開 zh-itn-dictation 模型入口，改由 --options 的 dictation:true 啟用，預設 false。自訂產物必須指定 bundled models/ 以外的輸出路徑。原本四個上游選項可以一起使用，另補上 〇 字形。
+- 舊的實驗模型保留於 .test-data/qa-zh-options/previous-model/。npm 仍只攜帶 40 組上游預設模型，新增封裝 setup、Python launcher、exporter 與中文編譯實作四份工具檔，版本更新為 0.2.0，尚未發布。
+- 已通過 157 項測試、型別檢查及離線封裝安裝。40 組模型的 120 個檔案與 21 個執行檔均和已發布 0.1.0 逐位元相同；dictation:false 重新編譯的三個檔案也與原本 zh-itn 完全相同。證據位於 .test-data/qa-zh-options/。
+- 已在安裝後的套件實測 npm --prefix 指令，確認可編譯自訂設定。README 採用此指令，避免 npm explore 的第二層 shell 移除 JSON 引號。
+- npm run check 已完成（exec session 85725，exit 0），紀錄為 .test-data/qa-zh-options/check.log。157 項測試、50,864 筆 Processor 重播、1,953 筆 graph 重播與 1,164 筆補充事件均通過；最終矩陣完整對應 27,178 個上游案例，未解為 0。本次沿用既有 Python 證據，未重跑完整上游 pytest。
+- 已調整安裝工具的完成提示，避免 npm 安裝者收到只適用來源 checkout 的 build 指令；封裝測試改用 README 相同的 npm --prefix 入口。其餘最後修改只有文件與 import 空行，接著重驗發行封裝，再提交原始碼、發布 npm、公開安裝驗證及通知指定 thread。
+
+- 最終封裝測試已通過（exec session 17888，exit 0），以 README 相同的 npm --prefix 指令從離線安裝後的套件編譯並載入自訂模型，ES modules、CommonJS 動態匯入與 TypeScript 均通過。最終封裝直接複製自已測試檔案，SHA-256：4c55d1bc01b5bfcf87bf4154a11a943f350ac2d8e84b55747624bcd162e013de；證據為 .test-data/qa-zh-options/release-package.json 與 package-final.log。
+- 沒有剩餘本機測試程序。接續原始碼提交與 npm 發布；新編譯選項尚未進行雲端驗證，預設模型與已發布版本一致。
