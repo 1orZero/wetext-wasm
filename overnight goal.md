@@ -332,15 +332,16 @@ npm publish ./wetext-wasm-0.1.0.tgz --access public
 - 若保留完整需求，可以在既有 zh-itn 建置流程擴充選項並保留原預設值，但仍須實作額外文法，且不同設定會編出不同的 FST 檔案。改成選項介面本身不會消除自訂規則的維護成本。
 - Opus 的較小方案是既有模型加純數字片段的前後處理，適用範圍不包含完整日期／時間及中文格式。這輪僅釐清設計，現有程式變更與模型全部保留，未修改、提交或發布程式；沒有執行中作業。
 
-### 中文聽寫編譯選項與 npm 0.2.0（進行中，2026-11-04）
+### 中文聽寫編譯選項與 npm 0.2.0 發布完成（2026-11-04）
 
-- 使用者已確認改用既有 zh-itn 編譯選項，並要求完成後發布 npm，再通知 thread 160f2188-27d7-4eae-8096-eadf1c75cc3b。已讀取該 thread，後續只通知發布結果，不修改 voiceink-hant。
-- 已移除 --profile 與公開 zh-itn-dictation 模型入口，改由 --options 的 dictation:true 啟用，預設 false。自訂產物必須指定 bundled models/ 以外的輸出路徑。原本四個上游選項可以一起使用，另補上 〇 字形。
-- 舊的實驗模型保留於 .test-data/qa-zh-options/previous-model/。npm 仍只攜帶 40 組上游預設模型，新增封裝 setup、Python launcher、exporter 與中文編譯實作四份工具檔，版本更新為 0.2.0，尚未發布。
-- 已通過 157 項測試、型別檢查及離線封裝安裝。40 組模型的 120 個檔案與 21 個執行檔均和已發布 0.1.0 逐位元相同；dictation:false 重新編譯的三個檔案也與原本 zh-itn 完全相同。證據位於 .test-data/qa-zh-options/。
-- 已在安裝後的套件實測 npm --prefix 指令，確認可編譯自訂設定。README 採用此指令，避免 npm explore 的第二層 shell 移除 JSON 引號。
-- npm run check 已完成（exec session 85725，exit 0），紀錄為 .test-data/qa-zh-options/check.log。157 項測試、50,864 筆 Processor 重播、1,953 筆 graph 重播與 1,164 筆補充事件均通過；最終矩陣完整對應 27,178 個上游案例，未解為 0。本次沿用既有 Python 證據，未重跑完整上游 pytest。
-- 已調整安裝工具的完成提示，避免 npm 安裝者收到只適用來源 checkout 的 build 指令；封裝測試改用 README 相同的 npm --prefix 入口。其餘最後修改只有文件與 import 空行，接著重驗發行封裝，再提交原始碼、發布 npm、公開安裝驗證及通知指定 thread。
-
-- 最終封裝測試已通過（exec session 17888，exit 0），以 README 相同的 npm --prefix 指令從離線安裝後的套件編譯並載入自訂模型，ES modules、CommonJS 動態匯入與 TypeScript 均通過。最終封裝直接複製自已測試檔案，SHA-256：4c55d1bc01b5bfcf87bf4154a11a943f350ac2d8e84b55747624bcd162e013de；證據為 .test-data/qa-zh-options/release-package.json 與 package-final.log。
-- 沒有剩餘本機測試程序。接續原始碼提交與 npm 發布；新編譯選項尚未進行雲端驗證，預設模型與已發布版本一致。
+- 使用者確認改用既有 zh-itn 編譯選項，並要求完成後發布 npm，再通知指定 thread。以上工作均已完成；本次未修改 voiceink-hant。
+- 已移除 --profile 與公開 zh-itn-dictation 模型入口，改由 --options 的 dictation:true 啟用，預設 false。自訂產物必須指定 bundled models/ 以外的輸出路徑。原本四個上游選項可以一起使用，另補上 〇 字形。編譯後透過既有 model 參數載入，沒有新增 JavaScript 執行時開關。
+- npm 仍只攜帶 40 組上游預設模型，另包含 setup、Python launcher、exporter 與中文編譯實作四份工具檔。README 提供已實測的 npm --prefix 指令；安裝完成提示也適用 npm 安裝者。舊實驗模型保留在 .test-data/qa-zh-options/previous-model/，沒有刪除測試證據。
+- npm run check 已完成，exit 0：157 項測試、50,864 筆 Processor 重播、1,953 筆 graph 重播與 1,164 筆補充事件均通過。最終矩陣完整對應 27,178 個上游案例，未解為 0。本次沿用既有 Python 證據，沒有重跑完整上游 pytest。
+- 40 組模型的 120 個檔案與 21 個執行檔均和 npm 0.1.0 逐位元相同；dictation:false 重新編譯的三個檔案也與原本 zh-itn 完全相同。證據為 .test-data/qa-zh-options/default-models.json 與 default-options.json。
+- 最終封裝測試以 README 相同的 npm --prefix 入口通過；正式發布使用同一份已測檔案。原始碼提交 d5913f5 與 v0.2.0 標籤已推送到公開 GitHub。沒有切換分支，仍在 main。
+- npm 官方發布驗證完成後，CLI 回傳 + wetext-wasm@0.2.0。registry 處理完成後，已匿名確認版本與 latest 都是 0.2.0，下載封裝的 SHA-256／SHA-512 與已測檔案一致。SHA-256：4c55d1bc01b5bfcf87bf4154a11a943f350ac2d8e84b55747624bcd162e013de。
+- 從全新目錄安裝公開版本，159 份檔案逐位元相同。直接使用發布版編譯 dictation:true，再以 ES modules、CommonJS 動態匯入及 TypeScript 驗證通過；日期、連續數字與 〇 案例也通過。紀錄為 .test-data/qa-zh-options/published.json，安裝目錄為 /private/tmp/qa-wetext-npm-020-66l8mcxo。
+- 已向指定 thread 傳送發布完成通知，內容包含版本連結、編譯與載入方法、驗證範圍、Jev 與日期候選擷取仍需處理的限制；工具確認通知已送達並啟動接收回合。沒有委派額外實作。目標：<t3-thread://v2/27cb8ad0-cb91-4ff0-899d-713e6da227f9/160f2188-27d7-4eae-8096-eadf1c75cc3b>。
+- 新編譯選項尚未做雲端驗證，也未量測 Worker 效能。原有上下文判斷、大數完整展開與代號合併限制保留；README 已說明。發布、驗證與本工作階段的測試程序均已結束，沒有待清理雲端資源或尚未完成的要求。
+- 發布連結：[npm 0.2.0](https://www.npmjs.com/package/wetext-wasm/v/0.2.0)、[GitHub v0.2.0](https://github.com/1orZero/wetext-wasm/tree/v0.2.0)。
