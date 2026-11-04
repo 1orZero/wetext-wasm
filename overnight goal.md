@@ -1,8 +1,8 @@
 # WeTextProcessing TypeScript＋WASM 完成紀錄
 
-狀態：實作、完整測試覆蓋、PersonalSpace 搬移與 GitHub 私有倉庫發布完成；尚未發布 npm。日期：2026-11-04。
+狀態：實作、完整測試覆蓋、PersonalSpace 搬移、GitHub 公開與 npm `0.1.0` 發布均已完成。日期：2026-11-04。
 
-目前工作目錄：`/Users/derek/PersonalSpace/wetext-wasm`。GitHub：[1orZero/wetext-wasm](https://github.com/1orZero/wetext-wasm)，可見性為 Private。搬移與發布驗證見文末。
+目前工作目錄：`/Users/derek/PersonalSpace/wetext-wasm`。GitHub：[1orZero/wetext-wasm](https://github.com/1orZero/wetext-wasm)，可見性為 Public。搬移與發布驗證見文末。
 
 套件可建置與離線安裝，執行階段不需要 Python。27,178 個上游案例已有完整對應，沒有未解項目：26,840 個具備 JavaScript／WASM 執行證據，其中 23 個另含保留的 Python 斷言；338 個只驗證 Python 建置工具、fixture 或私有實作。原 pytest 全數通過。50,864 筆 Processor 與 3,141 筆額外斷言均已通過 Node.js、本機及雲端 Workers。最終封裝已驗證，獨立覆核未發現阻擋發行準備的問題。
 
@@ -16,15 +16,15 @@
 | Workers 本機／雲端完整重播 | 各 50,864 筆，144 組模型，46 個預期例外，0 失敗 | `.test-data/qa-cf-full-parity-{local,remote}.json` |
 | Workers 本機／雲端補充斷言 | 各 3,141 筆，328 批，0 失敗 | `.test-data/qa-cf-extra-{local,remote}.json` |
 | 最終雲端 API 檢查 | 10 次請求通過，包含四個同時請求及 404／405 | `.test-data/qa-cf-final-smoke.json` |
-| 發行封裝 | 離線安裝、ES modules、CommonJS 動態載入、TypeScript 與雜湊檢查通過 | `.tools/attribution-package.log`、`.test-data/qa-attribution-package.json` |
-| npm 發布預演 | 最新版封裝離線 dry-run 通過；正式發布待使用者登入 | `.test-data/qa-attribution-npm-dry-run.json` |
+| 發行封裝 | 離線安裝、ES modules、CommonJS 動態載入、TypeScript 與雜湊檢查通過 | `.tools/npm-release-package.log`、`.test-data/qa-npm-release-package.json` |
+| npm 發布與安裝 | `wetext-wasm@0.1.0` 已公開發布；從 registry 安裝、封裝雜湊、中英文基本轉換與三種呼叫方式均通過 | `.test-data/qa-npm-published.json` |
 | 獨立覆核 | 未發現阻擋發行準備的問題；範圍為收據、關鍵程式與原測試抽查 | `.test-data/qa-final-review/README.md` |
 
 以下保留實作決策與各階段紀錄。最終結果以本節為準。
 
 ## 交付檔案
 
-- 套件：[`wetext-wasm-0.1.0.tgz`](wetext-wasm-0.1.0.tgz)，21,511,414 bytes，包含 40 組預設模型。
+- 套件：[`wetext-wasm-0.1.0.tgz`](wetext-wasm-0.1.0.tgz)，21,511,458 bytes，包含 40 組預設模型。
 - 雜湊檔：[`wetext-wasm-0.1.0.tgz.sha256`](wetext-wasm-0.1.0.tgz.sha256)。
 - 使用、建置與模型選項：[README.md](README.md)。
 - 授權與第三方聲明：[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)、`licenses/`。
@@ -33,7 +33,7 @@
 SHA-256：
 
 ```text
-d35038df624b73058c475b5f634270ec440bda6a78fad52083921f2f79ea6da8
+700c96f848f9edd5a9965ddcfd408cbd7a41a011be16a6ba5fe39298df842f2a
 ```
 
 目前交付檔已包含新版 README、原作者版權與移植聲明；它與最新通過離線安裝的封裝檔逐位元相同，另已核對 SHA-512、全部授權檔與 40 組模型。更新前的封裝與雜湊檔保留於 `.test-data/qa-before-attribution/`。初版曾通過瀏覽器 QA；Cloudflare 相容修正後已重跑 Node.js 與 Cloudflare Workers 驗證，未重跑瀏覽器 QA。
@@ -41,7 +41,7 @@ d35038df624b73058c475b5f634270ec440bda6a78fad52083921f2f79ea6da8
 安裝方式：
 
 ```sh
-npm install /Users/derek/PersonalSpace/wetext-wasm/wetext-wasm-0.1.0.tgz
+npm install wetext-wasm
 ```
 
 ## 實作範圍
@@ -266,3 +266,15 @@ npm publish ./wetext-wasm-0.1.0.tgz --access public
 - 驗證通過：`npm run build`、`npm run typecheck`、既有套件離線安裝測試（ES modules、CommonJS 動態匯入、TypeScript），以及實際封裝檔內 README、LICENSE、全部第三方聲明與已編譯 JavaScript 授權標頭的內容核對。WASM 的 SHA-256 與此次修改前完全一致，未重跑完整行為比對或雲端測試。
 - 最新封裝與校驗檔已更新；舊檔保留於 `.test-data/qa-before-attribution/`。新封裝的離線發布預演通過，與已測封裝的 SHA-512 一致。證據為 `.test-data/qa-attribution-package.json`、`.test-data/qa-attribution-npm-dry-run.json` 及 `.tools/attribution-*.log`。
 - 本次核對公開授權文字與發行內容，沒有進行法律審查，也未獨立調查上游每項素材的完整權利來源。待使用者完成 npm 登入後，先確認帳號、名稱可用性及發布驗證要求，再發布最新版封裝。沒有執行中的測試或部署。
+
+### 公開 GitHub 與 npm 首次發布（2026-11-04）
+
+- 使用者已完成 npm 登入，`npm whoami` 確認為 `1orzero`。名稱查詢回傳 E404；正式發布前尚無可查得的 `wetext-wasm` 套件。
+- 依使用者新指示，GitHub `1orZero/wetext-wasm` 已改為 PUBLIC，已讀回確認。
+- README 已改用 `npm install wetext-wasm`，package metadata 已加入公開 GitHub repository。提交 `824b286` 已推送 main。
+- 正式封裝再次通過既有離線安裝測試，檔案為 `wetext-wasm-0.1.0.tgz`，21,511,458 bytes；SHA-256 為 `700c96f848f9edd5a9965ddcfd408cbd7a41a011be16a6ba5fe39298df842f2a`。證據 `.test-data/qa-npm-release-package.json`、`.tools/npm-release-package.log`。前版封裝保留在 `.test-data/qa-before-npm-release/`。
+- 非互動式發布曾回傳 EOTP；改用互動式發布並完成 npm 官方驗證後，程序回傳 `+ wetext-wasm@0.1.0`。公開 registry 已確認版本 `0.1.0`、`latest` 標籤、維護者 `1orzero` 與 `Apache-2.0` 授權。
+- 已從公開 registry 下載封裝，SHA-256、SHA-512 與檔案大小均與已驗證的本機封裝一致。從全新目錄以 `npm install wetext-wasm@0.1.0` 安裝成功，使用獨立 npm 快取與空白使用者設定，核對 40 組模型及 lockfile 完整性。
+- 發布後驗證通過：中文 ITN、百分比、多候選、tag／verbalize、emoji 的 code-point 位置與英文 TN；ES modules、CommonJS 動態匯入與 TypeScript 嚴格型別編譯均通過。證據為 `.test-data/qa-npm-published.json`，測試目錄保留於 `/private/tmp/qa-wetext-npm-xfaQWl/`。
+- 公開連結：[GitHub](https://github.com/1orZero/wetext-wasm)、[npm 0.1.0](https://www.npmjs.com/package/wetext-wasm/v/0.1.0)。
+- 本次沒有變更執行邏輯，未重跑完整上游 pytest 或 Workers 全案例；沿用既有完整結果，另外確認此次發布內容與已測封裝一致。所有發布與安裝程序均已結束，沒有待執行工作。
