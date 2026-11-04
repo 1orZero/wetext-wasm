@@ -25,10 +25,15 @@ Runtime:  TypeScript -> WASM/OpenFst -> tokens -> field ordering -> output
 
 ## Use
 
+Install from [npm](https://www.npmjs.com/package/wetext-wasm):
+
+```sh
+npm install wetext-wasm
+```
+
 Uses ES modules and requires Node.js 22 or newer. CommonJS callers can use
-`await import('wetext-wasm')`. Install the locally built archive with
-`npm install /path/to/wetext-wasm-0.1.0.tgz`; this package has not been published
-to npm.
+`await import('wetext-wasm')`. For an offline installation, use
+`npm install /path/to/wetext-wasm-0.1.0.tgz`.
 
 ```ts
 import { createNormalizer } from 'wetext-wasm';
