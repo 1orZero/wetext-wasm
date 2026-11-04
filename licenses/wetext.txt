@@ -1,0 +1,46 @@
+WeTextProcessing upstream copyright notices and acknowledgments
+
+Source: https://github.com/wenet-e2e/WeTextProcessing
+Revision: c3b4d88d11c5efef817881f7e515cbdd3a19d99b
+License: Apache License, Version 2.0; see the package's LICENSE file.
+
+The following copyright notices are retained from the upstream tn/ and itn/
+grammar and runtime sources. They apply to their respective original components.
+
+Copyright (c) 2021, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+Copyright (c) 2021, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+Copyright (c) 2021, NVIDIA CORPORATION.  All rights reserved.
+Copyright (c) 2022 Xingchen Song (sxc19@tsinghua.org.cn)
+Copyright (c) 2022 Zhendong Peng (pzd17@tsinghua.org.cn)
+Copyright (c) 2022, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+Copyright (c) 2022, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+Copyright (c) 2022, NVIDIA CORPORATION.  All rights reserved.
+Copyright (c) 2023 Xingchen Song (sxc19@mails.tsinghua.edu.cn)
+Copyright (c) 2023, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+Copyright (c) 2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+Copyright (c) 2024 Logan Liu (2319277867@qq.com)
+Copyright (c) 2024 Xingchen Song (sxc19@tsinghua.org.cn)
+Copyright (c) 2024 Zhendong Peng (pzd17@tsinghua.org.cn)
+Copyright (c) 2024, DIGITAL UMUGANDA
+Copyright (c) 2024, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+Copyright (c) 2024, NVIDIA CORPORATION.  All rights reserved.
+Copyright (c) 2024, NVIDIA CORPORATION. All rights reserved.
+Copyright (c) 2024, WENET COMMUNITY.  Xingchen Song (sxc19@tsinghua.org.cn).
+Copyright (c) 2025 NVIDIA CORPORATION. All rights reserved.
+Copyright (c) 2025 Zhendong Peng (pzd17@tsinghua.org.cn)
+Copyright (c) 2025, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+Copyright (c) 2025, NVIDIA CORPORATION.  All rights reserved.
+Copyright (c) 2025, NVIDIA CORPORATION. All rights reserved.
+Copyright (c) 2026 Zhendong Peng (pzd17@tsinghua.org.cn)
+Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+Copyright (c) 2026, NVIDIA CORPORATION.  All rights reserved.
+Copyright (c) 2026, WENET COMMUNITY.
+Copyright 2015 and onwards Google, Inc.
+
+Upstream acknowledgments (reproduced from README.md):
+
+- [OpenFst](https://www.openfst.org/twiki/bin/view/FST/WebHome) and [Pynini](https://www.openfst.org/twiki/bin/view/GRM/Pynini) for the finite-state toolkit.
+- The [NeMo Text Processing](https://github.com/NVIDIA/NeMo-text-processing) team and community for text-processing grammars and resources, including the [Chinese TN reference](https://github.com/NVIDIA/NeMo-text-processing/tree/main/nemo_text_processing/text_normalization/zh).
+- [Zhenxiang Ma](https://github.com/mzxcpp), [Jiayu Du](https://github.com/dophist), and [SpeechColab](https://github.com/SpeechColab) for their contributions.
+- [Pynini](https://github.com/kylebgorman/pynini) for reference implementations of FAR loading and shortest-path decoding in the C++ runtime.
+- [chinese_text_normalization](https://github.com/speechio/chinese_text_normalization/tree/master/thrax/src/cn) for Chinese ITN grammar resources.

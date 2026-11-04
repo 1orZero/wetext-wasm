@@ -16,15 +16,15 @@
 | Workers 本機／雲端完整重播 | 各 50,864 筆，144 組模型，46 個預期例外，0 失敗 | `.test-data/qa-cf-full-parity-{local,remote}.json` |
 | Workers 本機／雲端補充斷言 | 各 3,141 筆，328 批，0 失敗 | `.test-data/qa-cf-extra-{local,remote}.json` |
 | 最終雲端 API 檢查 | 10 次請求通過，包含四個同時請求及 404／405 | `.test-data/qa-cf-final-smoke.json` |
-| 發行封裝 | 離線安裝、ES modules、CommonJS 動態載入、TypeScript 與雜湊檢查通過 | `.tools/final-package.log`、`.test-data/qa-npm-publish-dry-run.json` |
-| npm 發布預演 | 離線 dry-run 通過；登入檢查 E401，實際發布前需重新登入 | `.test-data/qa-npm-publish-dry-run.json`、`qa-npm-account.json` |
+| 發行封裝 | 離線安裝、ES modules、CommonJS 動態載入、TypeScript 與雜湊檢查通過 | `.tools/attribution-package.log`、`.test-data/qa-attribution-package.json` |
+| npm 發布預演 | 最新版封裝離線 dry-run 通過；正式發布待使用者登入 | `.test-data/qa-attribution-npm-dry-run.json` |
 | 獨立覆核 | 未發現阻擋發行準備的問題；範圍為收據、關鍵程式與原測試抽查 | `.test-data/qa-final-review/README.md` |
 
 以下保留實作決策與各階段紀錄。最終結果以本節為準。
 
 ## 交付檔案
 
-- 套件：[`wetext-wasm-0.1.0.tgz`](wetext-wasm-0.1.0.tgz)，21,508,688 bytes，包含 40 組預設模型。
+- 套件：[`wetext-wasm-0.1.0.tgz`](wetext-wasm-0.1.0.tgz)，21,511,414 bytes，包含 40 組預設模型。
 - 雜湊檔：[`wetext-wasm-0.1.0.tgz.sha256`](wetext-wasm-0.1.0.tgz.sha256)。
 - 使用、建置與模型選項：[README.md](README.md)。
 - 授權與第三方聲明：[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)、`licenses/`。
@@ -33,10 +33,10 @@
 SHA-256：
 
 ```text
-65d1aa3085f3af79c8bcc87effdc0d8a248d95a0883f8c12c9b295dc34145c0b
+d35038df624b73058c475b5f634270ec440bda6a78fad52083921f2f79ea6da8
 ```
 
-原交付檔案與發行準備時通過離線安裝的封裝檔逐位元相同；當時也已核對 npm 記錄的 SHA-512、檔案大小、40 份模型 manifest，以及已安裝的 `dist/` 與建置輸出。搬移後重建的驗證另記於文末，原交付檔案未替換。初版曾通過瀏覽器 QA；Cloudflare 相容修正後已重跑 Node.js 與 Cloudflare Workers 驗證，未重跑瀏覽器 QA。
+目前交付檔已包含新版 README、原作者版權與移植聲明；它與最新通過離線安裝的封裝檔逐位元相同，另已核對 SHA-512、全部授權檔與 40 組模型。更新前的封裝與雜湊檔保留於 `.test-data/qa-before-attribution/`。初版曾通過瀏覽器 QA；Cloudflare 相容修正後已重跑 Node.js 與 Cloudflare Workers 驗證，未重跑瀏覽器 QA。
 
 安裝方式：
 
@@ -255,3 +255,14 @@ npm publish ./wetext-wasm-0.1.0.tgz --access public
 - 搬移後的 23 項套件／API 測試與型別檢查已通過，含離線安裝、ES modules、CommonJS 動態匯入與 TypeScript；新的測試封裝資料見 `.test-data/qa-package-summary.json`，它與上方保留的原交付封裝分開記錄。
 - 完整 Node.js 重播再次通過 50,864 筆，144 組模型、46 個預期例外，0 差異；補充 FST、parser、alignment 與權重斷言也全部通過。最終矩陣仍完整對應 27,178 個案例，未解為 0。Python 的 27,178 筆原始結果沿用先前成功的擷取資料，本次沒有重新執行完整上游 pytest。
 - 搬移及私有原始碼發布已完成；沒有剩餘測試、部署或子代理作業。dotfiles 的其他變更保留。npm 發布仍需先處理原先的 E401 登入問題，不在本次 GitHub 發布範圍。
+
+### README 致謝與授權核對（2026-11-04）
+
+- README 開頭已明確說明本套件由 Python 的 WeTextProcessing 移植，原始套件、演算法、語言規則與資料的成果歸屬原作者、貢獻者及其致謝的專案，並附原 repository 連結。
+- 本專案 `LICENSE` 與固定上游版本 `c3b4d88d11c5efef817881f7e515cbdd3a19d99b` 的 `LICENSE` 逐位元相同；`package.json` 保持 `Apache-2.0`，未改動原授權條款。
+- 已在四份 TypeScript 移植檔及 C++ graph binding 補齊相關原作者版權、原 Apache 授權標頭、移植說明與來源連結。保留 Zhendong Peng 與 WENET COMMUNITY 的原始聲明。逐檔核對只變更註解與空行，沒有變更執行邏輯。
+- 新增 `licenses/wetext.txt`，保留上游 tn／itn 原始碼的 29 種版權聲明，以及 README 的完整致謝段落。`THIRD_PARTY_NOTICES.md` 已連結此檔；其他第三方授權及姓名資料的原始條款保留。
+- README 已加入 npm 登入、確認帳號、重新封裝、發布預演、正式發布及版本驗證步驟，明確說明 `wetext-wasm` 為公開 npm 套件，與私人 GitHub repository 的可見性分開。使用者會先在這台 Mac 完成瀏覽器登入，再交由 Agent 處理正式發布；本次沒有執行登入或正式發布。
+- 驗證通過：`npm run build`、`npm run typecheck`、既有套件離線安裝測試（ES modules、CommonJS 動態匯入、TypeScript），以及實際封裝檔內 README、LICENSE、全部第三方聲明與已編譯 JavaScript 授權標頭的內容核對。WASM 的 SHA-256 與此次修改前完全一致，未重跑完整行為比對或雲端測試。
+- 最新封裝與校驗檔已更新；舊檔保留於 `.test-data/qa-before-attribution/`。新封裝的離線發布預演通過，與已測封裝的 SHA-512 一致。證據為 `.test-data/qa-attribution-package.json`、`.test-data/qa-attribution-npm-dry-run.json` 及 `.tools/attribution-*.log`。
+- 本次核對公開授權文字與發行內容，沒有進行法律審查，也未獨立調查上游每項素材的完整權利來源。待使用者完成 npm 登入後，先確認帳號、名稱可用性及發布驗證要求，再發布最新版封裝。沒有執行中的測試或部署。

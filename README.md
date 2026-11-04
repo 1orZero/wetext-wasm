@@ -1,7 +1,15 @@
 # wetext-wasm
 
-WeTextProcessing for JavaScript and TypeScript, with an OpenFst WebAssembly
-runtime. Normalization runs locally without Python or an API service.
+A JavaScript and TypeScript port of the Python package
+[WeTextProcessing](https://github.com/wenet-e2e/WeTextProcessing), using an
+OpenFst WebAssembly runtime. Normalization runs locally without Python or an
+API service.
+
+All credit for the original package, normalization algorithms, language
+grammars, and data belongs to the **WeTextProcessing authors and contributors**
+and the projects they credit. This repository adapts their work for JavaScript
+and TypeScript. Please visit the [original repository](https://github.com/wenet-e2e/WeTextProcessing)
+for the Python implementation and its contributors.
 
 The grammar source is pinned to
 [WeTextProcessing c3b4d88](https://github.com/wenet-e2e/WeTextProcessing/tree/c3b4d88d11c5efef817881f7e515cbdd3a19d99b).
@@ -263,8 +271,54 @@ classes, the Python command-line program, and its disk-cache management remain
 build-time tooling. It does not provide a JavaScript replacement for Pynini's
 grammar-authoring API.
 
-## Licenses
+## Release to npm
 
-Apache-2.0. See [LICENSE](LICENSE) and
-[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for the compiled runtime,
-upstream grammars, and third-party data notices.
+These commands are for the first `wetext-wasm@0.1.0` release. Start from a built
+checkout that has passed the compatibility checks above. Create a fresh archive
+after any README or license update so the published package includes it:
+
+```sh
+npm pack
+shasum -a 256 wetext-wasm-0.1.0.tgz > wetext-wasm-0.1.0.tgz.sha256
+npm publish ./wetext-wasm-0.1.0.tgz --dry-run --ignore-scripts
+```
+
+Sign in to the npm account that will own the package. Complete the browser
+login, then check the username printed by `npm whoami`:
+
+```sh
+npm login --auth-type=web --registry=https://registry.npmjs.org/
+npm whoami --registry=https://registry.npmjs.org/
+```
+
+For this interactive workflow, enable two-factor authentication on the npm
+account and complete any authentication prompt during publishing. See the
+[npm publishing requirements](https://docs.npmjs.com/requiring-2fa-for-package-publishing-and-settings-modification/).
+
+The following command publishes a **public npm package**. A private GitHub
+repository does not make the npm package private. Check the archive and account
+before running it:
+
+```sh
+shasum -a 256 -c wetext-wasm-0.1.0.tgz.sha256
+npm publish ./wetext-wasm-0.1.0.tgz --access public --registry=https://registry.npmjs.org/
+npm view wetext-wasm@0.1.0 version dist.integrity --registry=https://registry.npmjs.org/
+```
+
+For later releases, use a new version and update the archive filename in these
+commands. npm does not allow an already published name/version pair to be
+reused. See the [npm publish documentation](https://docs.npmjs.com/cli/v11/commands/npm-publish/).
+
+## Licenses and attribution
+
+This port uses **Apache-2.0**, the same license as the original
+[WeTextProcessing](https://github.com/wenet-e2e/WeTextProcessing) project. The
+[LICENSE](LICENSE) file is an unchanged copy from the pinned upstream revision.
+Ported source files retain the original copyright and license headers and
+identify the adaptation.
+
+[Upstream copyright notices and acknowledgments](licenses/wetext.txt) preserve
+credit for the original authors and their dependencies. Bundled third-party
+components and data retain their respective licenses; see
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and [licenses/](licenses/).
+These files are included in the npm archive.
