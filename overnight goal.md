@@ -395,3 +395,33 @@ npm publish ./wetext-wasm-0.1.0.tgz --access public
 - 40 組預設模型與 WASM 共 121 份檔案逐位元等同 0.2.0。離線封裝安裝、已安裝套件的 dictation 編譯入口、ES modules、CommonJS 動態匯入與 TypeScript 皆通過。發布預檢通過，159 份封裝檔案再次逐位元核對目前工作區；正式發布將使用同一份已測封裝。
 - 驗證紀錄在 .test-data/qa-release-021/；測試封裝目錄為 /var/folders/k9/s193xnn144sdywhvqq7s09s40000gn/T/qa-wetext-package-KBubB0。未重測雲端部署、Worker 或 Jev 效能。
 - 下一步：提交原始碼與 v0.2.1 標籤、發布 npm、匿名下載核對並安裝驗證，最後通知原 thread。尚未宣稱發布完成。
+
+
+### 0.2.1 原始碼已上傳，等待 npm 網頁驗證（2026-11-04）
+
+- 修正提交 d77d87b 與 v0.2.1 標籤已推送到既有公開儲存庫 1orZero/wetext-wasm。第一次推送被自動審核拒絕，理由是未識別 GitHub 授權；主工作階段讀取本 thread 既有使用者訊息，確認先前要求建立個人 repo、後續改為 public，提供原始授權後重新審核通過。
+- npm 非互動發布回傳 EOTP，要求一次性網頁驗證，尚未發布 0.2.1。已改用互動終端，發布程序 session 90856 正等待 npm 驗證；若會話到期，確認 registry 沒有 0.2.1 後，再用同一份封裝重試。
+- Ego 任務空間 16（wetext 0.2.1 npm release）、頁面 p1 已開啟 npm Sign In；瀏覽器尚未登入，需使用者完成。下一步交接瀏覽器控制權並等待使用者回覆，不讀取或索取密碼。
+- 已測發行檔 wetext-wasm-0.2.1.tgz 的 SHA-256 為 942583af90e36ee98c9fad8f2664f8280983894d6111a1ec44739e0327605de8。159 個封裝檔案與已提交工作區一致；完整驗證與預檢均已完成，無須重跑未改動的測試。
+- 待完成：npm 驗證與發布；匿名核對 registry 版本、latest、下載內容雜湊；全新安裝發布版並確認修正與 metadata；以 t3_thread_send 通知原 thread 160f2188-27d7-4eae-8096-eadf1c75cc3b。通知須涵蓋重新編譯 dictation:true、wetext／Jev 分工、嚴格數值解析與效能限制；目前尚未傳送，避免宣稱已發布。
+- 本段進度尚未提交。除 npm 等待驗證程序外，本輪測試、編譯與子工作皆已結束。使用者最新要求可由主 thread a49d630f-fbea-4ee6-ae4b-2025df2f7562 的訊息 56b4119d-10db-4eab-8ee3-4d64d8f39485 取得。
+
+
+### npm CLI 重新登入後重試（2026-11-04，等待單次發布確認）
+
+- 前一個 npm 發布程序 session 90856 已以 E404 結束。使用者回報已重新登入，並說明沒有在 Ego 登入，要求重試。
+- npm whoami 已確認 CLI 帳號為 1orzero；匿名 registry 查詢確認 0.2.1 尚不存在。已核對原封裝 SHA-256 一致，沒有改動程式或重跑測試。
+- 新的互動發布程序 session 67369 已啟動。npm 另外要求單次發布驗證；已依 npm 的 Press ENTER 提示開啟使用者預設瀏覽器，未操作或取回 Ego 的控制權。
+- 目前仍等待此次網頁確認，尚未發布，也尚未通知原 thread。使用者完成確認後，先讀取 session 67369 的結果；若過期，先查 registry 再重試。發布成功後沿用上一節的下載、安裝及通知步驟。
+
+
+### npm 0.2.1 發布、公開安裝驗證與通知完成（2026-11-04）
+
+- 使用者重新登入 CLI 後，npm 確認帳號為 1orzero。單次發布驗證已在使用者預設瀏覽器完成，發布程序 exit 0，回傳 + wetext-wasm@0.2.1。沒有要求使用者再登入 Ego，也沒有取回已交接的 Ego 控制權。
+- npm 後端處理完成後，已匿名確認 0.2.1 與 latest。公開下載的 SHA-256 為 942583af90e36ee98c9fad8f2664f8280983894d6111a1ec44739e0327605de8；SHA-512 同樣與已通過完整測試的封裝一致。沒有重複發布。
+- 從 npm 全新安裝公開版本，159 份檔案逐位元相符。使用發布版編譯器與既有建置工具重編 dictation:true，generator metadata 及 7 個修正／保留行為案例全部通過。安裝與模型保留於 /private/tmp/qa-wetext-npm-021-rr6xm3b9；證據為 .test-data/qa-release-021/published.json、published-install.log 與 published.tgz。
+- 本次沒有改動已驗證封裝，因此沿用 160 項測試及完整上游相容性結果；發布後另核對實際下載與安裝內容。本輪未重新執行完整 Python pytest、Jev、雲端部署或 Worker 效能測試。
+- 已依使用者指示向原 thread 傳送完成通知，工具回傳 delivery:started。內容包含 0.2.1 連結、三項修正、重新編譯要求、wetext／Jev 的分工、嚴格數值解析與 code point 位置限制，以及維持現有整合判斷的建議；沒有委派額外實作或雲端作業。
+- 通知目標：<t3-thread://v2/27cb8ad0-cb91-4ff0-899d-713e6da227f9/160f2188-27d7-4eae-8096-eadf1c75cc3b>。通知識別：message:mcp:03ddd5de-5190-4c51-ac6f-db4c8890a428:thread-send:wetext-021-release-notice-20261104。
+- 原始碼提交 d77d87b 與 v0.2.1 已上傳 GitHub，仍在 main。實作、發布、公開安裝驗證與指定通知均完成；本工作階段沒有待續的測試、編譯或發布程序，也沒有新增雲端資源。
+- 發布連結：[npm 0.2.1](https://www.npmjs.com/package/wetext-wasm/v/0.2.1)、[GitHub v0.2.1](https://github.com/1orZero/wetext-wasm/tree/v0.2.1)。
