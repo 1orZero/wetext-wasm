@@ -11,6 +11,7 @@ from tn.cli import PIPELINES
 
 REVISION = "c3b4d88d11c5efef817881f7e515cbdd3a19d99b"
 ROOT = Path(__file__).resolve().parents[1]
+PACKAGE = json.loads((ROOT / "package.json").read_text())
 
 
 def export_model(processor, destination, language, direction, options=None):
@@ -25,6 +26,7 @@ def export_model(processor, destination, language, direction, options=None):
     manifest = {
         "format": 1,
         "upstream": REVISION,
+        "generator": {"name": PACKAGE["name"], "version": PACKAGE["version"]},
         "language": language,
         "direction": direction,
         "options": options or {},

@@ -62,6 +62,49 @@ for (const [input, expected] of [
   });
 }
 
+test('dictation keeps approximate quantities whole', () => {
+  const normalizer = normalizers.get('dictation');
+  for (const [input, expected] of [
+    ['十幾個', '十幾個'],
+    ['幾十個', '幾十個'],
+    ['幾十公斤', '幾十公斤'],
+    ['幾十美元', '幾十美元'],
+    ['幾十 公斤', '幾十 公斤'],
+    ['二十幾分鐘', '二十幾分鐘'],
+    ['一千幾百元', '一千幾百元'],
+    ['幾百萬', '幾百萬'],
+    ['二十几分钟', '二十几分钟'],
+    ['十幾個人，幾十公斤，十五分鐘', '十幾個人，幾十公斤，15分鐘'],
+    ['三四個', '3~4個'],
+    ['三到四個', '3~4個'],
+    ['十分鐘', '10分鐘'],
+  ]) {
+    assert.equal(normalizer.normalize(input), expected, input);
+  }
+});
+
+test('dictation disambiguates short clock minutes from decimal durations', () => {
+  const normalizer = normalizers.get('dictation');
+  for (const [input, expected] of [
+    ['下午三點五分', '3:05p.m.'],
+    ['早上八點一分', '8:01a.m.'],
+    ['下午三点五分', '3:05p.m.'],
+    ['晚上兩點九分', '2:09p.m.'],
+    ['下午三點五分二十秒', '3:05:20p.m.'],
+    ['下午三點五分鐘', '下午3.5分鐘'],
+    ['下午三點五', '下午3.5'],
+    ['三點五分', '3.5分'],
+    ['下午三點十五分', '3:15p.m.'],
+  ]) {
+    assert.equal(normalizer.normalize(input), expected, input);
+  }
+});
+
+test('compiled models retain generator provenance after loading', async () => {
+  const { version } = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
+  assert.deepEqual(normalizers.get('dictation').model.generator, { name: 'wetext-wasm', version });
+});
+
 test('dictation retains raw fields and code-point mappings through aliases', () => {
   const n = normalizers.get('dictation');
   const input = '😀廿七，兩萬三！';
@@ -87,9 +130,11 @@ test('dictation never groups contiguous spoken digits with inserted spaces, incl
 test('dictation composes with the upstream Chinese ITN build options', async () => {
   for (const [name, options, cases] of [
     ['upstream-flags', { dictation: true, enable_0_to_9: true, enable_million: true, remove_interjections: false },
-      [['三', '3'], ['三個', '3個'], ['一千萬', '10000000'], ['啊兩萬三', '啊23000']]],
+      [['三', '3'], ['三個', '3個'], ['一千萬', '10000000'], ['啊兩萬三', '啊23000'],
+       ['十幾個', '十幾個'], ['下午三點五分', '3:05p.m.']]],
     ['no-standalone', { dictation: true, enable_standalone_number: false },
-      [['二十三', '二十三'], ['三十秒', '30秒'], ['零三四八五四六', '0348546']]],
+      [['二十三', '二十三'], ['三十秒', '30秒'], ['零三四八五四六', '0348546'],
+       ['幾十公斤', '幾十公斤'], ['下午三點五分', '3:05p.m.']]],
   ]) {
     const model = compile(options, name);
     const manifest = JSON.parse(await readFile(new URL('manifest.json', model), 'utf8'));

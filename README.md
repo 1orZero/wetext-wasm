@@ -33,7 +33,7 @@ npm install wetext-wasm
 
 Uses ES modules and requires Node.js 22 or newer. CommonJS callers can use
 `await import('wetext-wasm')`. For an offline installation, use
-`npm install /path/to/wetext-wasm-0.2.0.tgz`.
+`npm install /path/to/wetext-wasm-0.2.1.tgz`.
 
 ```ts
 import { createNormalizer } from 'wetext-wasm';
@@ -136,6 +136,52 @@ which passages contain numbers. `三三兩兩` is protected as a known phrase.
 Large magnitudes remain segmented (`一億兩千萬` becomes `1億2000萬`), and
 `M 一` stays unchanged. Currency formatting and range expressions such as
 `四五十` → `40~50` retain their grammar behavior. English models are unchanged.
+
+Approximate quantities containing 幾/几 keep their number words and adjacent
+measurement or currency units: `十幾個`, `幾十公斤`, and `幾十美元` stay as written.
+Clock times with a time-of-day prefix and an explicit 分 accept unpadded minutes:
+`下午三點五分` becomes `3:05p.m.`. `下午三點五分鐘` remains a decimal duration,
+`下午3.5分鐘`; without the prefix, `三點五分` retains its decimal reading, `3.5分`.
+Time output keeps the upstream colon format. Bare hours such as `三點` retain
+their existing behavior.
+
+Models compiled with version 0.2.1 or later record the compiler package name and
+version in `manifest.generator`. The loader exposes it as
+`normalizer.model.generator` and still accepts older manifests without this
+field. File SHA-256 hashes identify the model contents; the generator record
+helps trace how they were built.
+
+### Normalization and contextual decisions
+
+Use wetext-wasm to convert supported numbers, dates, times, and units when the
+caller has decided that the passage should be normalized. It can also propose
+conversions for an application to review.
+
+Use an application policy or a contextual model such as Jev to decide whether
+number words should become digits in a particular sentence. Phrases such as
+`十分重要`, personal writing preferences, and unfamiliar names need that decision.
+A numeric-looking output does not establish that the conversion fits its context.
+
+```text
+original text -> normalizeWithMapping -> contextual decision -> selected replacements
+```
+
+Evaluate each candidate against the original sentence, then apply approved
+replacements to the original code-point spans. Preserve unmatched text. Mappings
+only describe candidates the grammar produced; they do not supply missing
+conversions. `tokenType` names a grammar category, not a confidence score or a
+reliable distinction between approximate and explicit ranges.
+
+Keep a strict numeric parser when its contract requires a complete numeric value
+or rejection of unsupported input. ITN can produce `1億2000萬` or `40~50`.
+`tag()` retains raw field text such as `二十三`; converted values come from
+`verbalize()`, `normalize()`, or a mapping's `output.text`.
+
+A JavaScript host without WebAssembly needs a separate runtime, such as a Node
+process. Batch work per invocation and measure process startup and model loading
+before integrating it into an interactive path. Reuse a loaded normalizer when
+an existing long-running host allows it. Precompiled models remove the build
+requirement, but do not remove those runtime costs.
 
 ## API
 
@@ -349,14 +395,14 @@ grammar-authoring API.
 
 ## Release to npm
 
-These commands publish `wetext-wasm@0.2.0`. Start from a built checkout that has
+These commands publish `wetext-wasm@0.2.1`. Start from a built checkout that has
 passed the compatibility checks above. Create a fresh archive after any README
 or license update so the published package includes it:
 
 ```sh
 npm pack
-shasum -a 256 wetext-wasm-0.2.0.tgz > wetext-wasm-0.2.0.tgz.sha256
-npm publish ./wetext-wasm-0.2.0.tgz --dry-run --ignore-scripts
+shasum -a 256 wetext-wasm-0.2.1.tgz > wetext-wasm-0.2.1.tgz.sha256
+npm publish ./wetext-wasm-0.2.1.tgz --dry-run --ignore-scripts
 ```
 
 Sign in to the npm account that will own the package. Complete the browser
@@ -376,9 +422,9 @@ repository does not make the npm package private. Check the archive and account
 before running it:
 
 ```sh
-shasum -a 256 -c wetext-wasm-0.2.0.tgz.sha256
-npm publish ./wetext-wasm-0.2.0.tgz --access public --registry=https://registry.npmjs.org/
-npm view wetext-wasm@0.2.0 version dist.integrity --registry=https://registry.npmjs.org/
+shasum -a 256 -c wetext-wasm-0.2.1.tgz.sha256
+npm publish ./wetext-wasm-0.2.1.tgz --access public --registry=https://registry.npmjs.org/
+npm view wetext-wasm@0.2.1 version dist.integrity --registry=https://registry.npmjs.org/
 ```
 
 For later releases, use a new version and update the archive filename in these

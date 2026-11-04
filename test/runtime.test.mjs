@@ -55,6 +55,9 @@ test('models reject incompatible metadata, corrupt bytes, and invalid native gra
   await assert.rejects(createNormalizer({ model: corrupt }), /checksum/);
   await assert.rejects(createNormalizer({ model: { ...original, verbalizer: new Uint8Array() } }), /size/);
   await assert.rejects(createNormalizer({ model: { ...original, manifest: { ...original.manifest, upstream: 'wrong' } } }), /manifest/);
+  for (const generator of [null, {}, { name: 'wetext-wasm', version: 2 }, { name: ' ', version: '0.2.1' }]) {
+    await assert.rejects(createNormalizer({ model: { ...original, manifest: { ...original.manifest, generator } } }), /generator/);
+  }
   await assert.rejects(createNormalizer({ model: original, direction: 'tn' }), /does not match/);
   await assert.rejects(createNormalizer({ language: '../zh' }), TypeError);
   const bytes = new TextEncoder().encode('qa-invalid-fst');

@@ -20,6 +20,7 @@ export type Direction = "tn" | "itn";
 export interface ModelManifest {
   format: 1;
   upstream: string;
+  generator?: { name: string; version: string };
   language: string;
   direction: Direction;
   options: Record<string, boolean>;

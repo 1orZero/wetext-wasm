@@ -117,25 +117,43 @@ def create_dictation_model(*, remove_interjections=True, enable_standalone_numbe
     noon = time.tag_field("noon", time.noon) + insert(" ")
     fields = noon.ques + hour + minute + second
     fields |= noon + hour + insert(" ") + time.tag_field("minute", time.minute_zero_no_fen) + second
+    # Unpadded single-digit minutes need an explicit time-of-day prefix and 分.
+    short_minute = canonical @ (string_map([(source[1:], value) for source, value
+                                           in rows(get_abs_path("chinese/data/time/minute_zero.tsv"))]) + delete("分"))
+    time.minute |= short_minute
+    short_fields = noon + hour + insert(" ") + time.tag_field("minute", short_minute)
+    spoken_second = difference(input_language(time.second), accep("")) @ time.second
+    fields |= short_fields + (insert(" ") + time.tag_field("second", spoken_second)).ques
     time.tagger = time.add_tokens(fields)
     time.build_verbalizer()
 
+    money = Money(enable_0_to_9=enable_0_to_9, cardinal=cardinal)
     whitelist = Whitelist()
     identity = string_map([(entry[0], entry[0]) for entry in rows(get_abs_path("chinese/data/default/whitelist.tsv"))
                            if len(entry) == 1 or entry[0] == entry[1]])
     identity |= string_map([("三三两两", "三三两两")])
+    numeral = string_map([(character, character) for character in "零一二两三四五六七八九十百千万亿兆"])
+    approximate = numeral.plus + "几" + numeral.star | "几" + numeral.plus
+    quantity_units = units | input_language(canonical @ money.currency)
+    # Include the unit so a longer measure or currency token cannot split the approximation.
+    identity |= approximate + ((accep(" ") | accep("\t")).ques + quantity_units).ques
     # Keep the original glyphs of protected words, including Traditional variants.
     whitelist.graph = replace_inputs(whitelist.graph, input_language(canonical @ identity))
     whitelist.tagger = whitelist.add_tokens(whitelist.tag_field("value", whitelist.graph))
     whitelist.build_verbalizer()
 
+    char = Char()
     rules = (
         RuleSpec(date, 1.02), RuleSpec(whitelist, 1.01),
         RuleSpec(Fraction(cardinal=cardinal), 1.05), RuleSpec(measure, 1.05),
-        RuleSpec(Money(enable_0_to_9=enable_0_to_9, cardinal=cardinal), 1.04), RuleSpec(time, 1.05),
+        RuleSpec(money, 1.04), RuleSpec(time, 1.05),
         RuleSpec(cardinal, 1.06), RuleSpec(Math(cardinal=cardinal), 1.10),
-        RuleSpec(LicensePlate(), 1.0), RuleSpec(TrainNumber(), 1.0), RuleSpec(Char(), 100),
+        RuleSpec(LicensePlate(), 1.0), RuleSpec(TrainNumber(), 1.0), RuleSpec(char, 100),
     )
-    model.tagger = model.tagger_union(rules).star @ model.build_rule(delete(" "), "", "[EOS]")
+    # 分 must not consume the prefix of 分鐘; retain the decimal-duration path instead.
+    clock = input_language(canonical @ accep("钟")) @ char.tagger
+    split_duration = arcmap((time.add_tokens(short_fields) + clock).project("output"), map_type="rmweight").optimize()
+    allowed = difference(model.VSIGMA, model.VSIGMA + split_duration + model.VSIGMA)
+    model.tagger = model.tagger_union(rules).star @ allowed @ model.build_rule(delete(" "), "", "[EOS]")
     model.verbalizer = (model.verbalizer_union(rules) @ PostProcessor(remove_interjections=remove_interjections).processor).star
     return model

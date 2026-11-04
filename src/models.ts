@@ -13,6 +13,14 @@ export function validateManifest(value: unknown): ModelManifest {
       !record(value.options) || !record(value.tokenOrders) || !record(value.files)) {
     throw new TypeError("Invalid or incompatible WeText model manifest");
   }
+  let generator: ModelManifest["generator"];
+  if (value.generator !== undefined) {
+    if (!record(value.generator) || typeof value.generator.name !== "string" || !value.generator.name.trim() ||
+        typeof value.generator.version !== "string" || !value.generator.version.trim()) {
+      throw new TypeError("Invalid model generator metadata");
+    }
+    generator = Object.freeze({ name: value.generator.name, version: value.generator.version });
+  }
   const options: Record<string, boolean> = {};
   for (const [key, option] of Object.entries(value.options)) {
     if (typeof option !== "boolean") throw new TypeError("Model options must be boolean");
@@ -35,6 +43,7 @@ export function validateManifest(value: unknown): ModelManifest {
   return Object.freeze({
     format: 1,
     upstream: UPSTREAM_REVISION,
+    ...(generator === undefined ? {} : { generator }),
     language: value.language,
     direction: value.direction,
     options: Object.freeze(options),

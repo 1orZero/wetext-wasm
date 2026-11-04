@@ -1,6 +1,6 @@
 {
   "name": "wetext-wasm",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "WeTextProcessing normalization for JavaScript with an OpenFst WebAssembly runtime",
   "type": "module",
   "license": "Apache-2.0",
